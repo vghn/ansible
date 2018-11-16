@@ -1,0 +1,25 @@
+dist: xenial
+services: docker
+env:
+  global:
+  - GIT_BRANCH="$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
+  matrix:
+  - distribution: ubuntu
+    version: bionic
+  - distribution: ubuntu
+    version: xenial
+  - distribution: ubuntu
+    version: trusty
+before_install:
+  - git clone https://github.com/vghn/vgs.git ~/vgs
+  - sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce
+  - docker --version
+install:
+  - sudo docker pull ${distribution}:${version}
+script:
+  - container_id=$(mktemp)
+notifications:
+  webhooks:
+    urls: https://vbot.ghn.me/travis
+  slack:
+    secure: dBW75rTN7tGVXX3oJfAoFRQyEgtZOZbE0NgV+DuKjCaAmPNGVXt0/csto8OpD9+g1KhW0wGxiK96OuN7hEB9y+VXg157nRo87AgbRthIXk/FbHIkogv7fFY6krwtA+M7P6461YOqaNgGV8mNDh2WOU3LjLa3GQoLlEWxNyEfUd0luqtTetFSzE9cNoJnS78/M59/btZ2+PwwOgdrDLlMey+ZxO/FB8LHjB16gllB+LO3RaXFhJLQNTbkenu4uZ6KnbQiVhJSek72A0g1IS5K2c1DPe5Gb8urJ+7FkINGjdt6sUOTiC4cHLHrG3JSUzap9j9V+1+597WvBkUXmGfDT7hMxd/8uJM5Qik1y5KeAGBk/thahaqXXuV4i8wO0unBZZIoZ9yu16/of92ysZXWb095O589SH+/ethiEUO/2AzEk+nhkdOKBtaIq3e7GhW6Os1l2Gip6bHNVrRCclf1JkBCPiPtnqESTvB4QMv3hTua1NC7wJlpFd8luvL9vYLvITmOAgzPxnOH+R3R20wT+YCZd6DC7b3e3RtlZkQ+BnUTvlzMdaVE4LMQegMgfQ6CXevV1F3hli/hyWagf4MHYFKLrqA0IUaCkVd56/+17/vWmS5iyvmnCg7LKObFxDojzwii1fxU94tlz8TSs/8C4FN2qeMkltcFpsIAOCOsW9c=
