@@ -19,7 +19,7 @@ install:
   - docker build --no-cache --rm --file=travis/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible travis
 script:
   - container_id=$(mktemp)
-  - docker rm -f "$(cat ${container_id})"
+  - docker rm -f "$(cat ${container_id})" || true
 notifications:
   webhooks:
     urls: https://vbot.ghn.me/travis
