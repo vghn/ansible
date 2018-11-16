@@ -1,5 +1,5 @@
 # Ansible
-  [![Build Status](https://travis-ci.org/vghn/ansible.svg?branch=master)](https://travis-ci.org/vghn/ansible)
+  [![Build Status](https://travis-ci.com/vghn/ansible.svg?branch=master)](https://travis-ci.com/vghn/ansible)
 
 ## Development status ##
 This project is still in a prototype development stage.
