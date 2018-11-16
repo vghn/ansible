@@ -1,0 +1,14 @@
+FROM ubuntu:bionic
+
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update -y && apt-get -qy dist-upgrade -y && \
+    apt-get install -y software-properties-common systemd && \
+    apt-get -y clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN apt-add-repository -y ppa:ansible/ansible && \
+    apt-get update && apt-get install -qy git ansible && \
+    apt-get -y clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
+
+ENTRYPOINT ["/bin/systemd"]

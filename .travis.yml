@@ -15,9 +15,11 @@ before_install:
   - sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce
   - docker --version
 install:
-  - sudo docker pull ${distribution}:${version}
+  - docker pull ${distribution}:${version}
+  - docker build --no-cache --rm --file=travis/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible travis
 script:
   - container_id=$(mktemp)
+  - docker rm -f "$(cat ${container_id})"
 notifications:
   webhooks:
     urls: https://vbot.ghn.me/travis
