@@ -1,0 +1,6 @@
+---
+- hosts: cosmin
+  become: yes
+  roles:
+    - roles/common
+    - geerlingguy.ntp

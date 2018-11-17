@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: false
+  pre_tasks:
+  - name: Install Python for Ansible
+    raw: test -e /usr/bin/python || (sudo apt update && sudo apt install -qy python-minimal)
+    changed_when: false
+  - name: Gathering Facts
+    setup:
