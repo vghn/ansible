@@ -1,6 +1,13 @@
 ---
 - hosts: vgh
   become: yes
+
+  vars:
+    pip_install_packages:
+      - name: docker
+
   roles:
     - roles/common
     - geerlingguy.ntp
+    - geerlingguy.pip
+    - geerlingguy.docker

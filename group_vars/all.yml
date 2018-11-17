@@ -1,2 +1,6 @@
 ---
+# System
 ntp_timezone: Etc/UTC
+
+# Package versions
+docker_compose_version: "1.23.1"
