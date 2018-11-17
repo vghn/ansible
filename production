@@ -1,3 +1,6 @@
+[all:vars]
+ansible_user = deploy
+
 [vgh]
 rhea
 prometheus

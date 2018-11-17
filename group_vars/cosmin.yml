@@ -1,2 +1,24 @@
 ---
+# System
 ntp_timezone: US/Mountain
+
+# Accounts
+accounts:
+  - name: vlad
+    comment: Vlad Ghinea
+    uid: 8523
+    groups: admins
+    append: yes
+    shell: /bin/bash
+    authorized_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE0yyqRUbBGOW9PcYyuaUMaRi/EFwL59E3wwMn5dJAKQ vlad@ghn.me
+  - name: cosmin
+    comment: Cosmin Ionica
+    uid: 7355
+    groups: admins
+    append: yes
+    shell: /bin/bash
+    authorized_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAN+Ge6UYazTf6rnwdBP7okOdyBNeMUW0pQYkN79ajis europn@gmail.com
+  - name: cmedia
+    comment: Media User
+    uid: 7777
+

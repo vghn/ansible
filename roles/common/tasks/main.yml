@@ -1,1 +1,34 @@
 ---
+# Admins
+- name: Create Admins group
+  group:
+    name: admins
+    system: yes
+    state: present
+
+- name: Add Admins to Sudoers
+  lineinfile:
+    path: /etc/sudoers.d/10_admins
+    line: 'admins ALL=(ALL) NOPASSWD: ALL'
+    state: present
+    mode: 0440
+    create: yes
+    validate: 'visudo -cf %s'
+
+# User accounts
+- name: "Create user accounts"
+  user:
+    name: "{{ item.name }}"
+    comment: "{{ item.comment }}"
+    uid: "{{ item.uid }}"
+    groups: "{{ item.groups | default(none) }}"
+    append: "{{ item.append | default('yes') }}"
+    shell: "{{ item.shell | default('/bin/bash') }}"
+  with_items: "{{ accounts }}"
+
+- name: "Add authorized keys"
+  authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ item.authorized_key }}"
+  when: item.authorized_key is defined
+  with_items: "{{ accounts }}"

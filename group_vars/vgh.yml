@@ -1,2 +1,14 @@
 ---
+# System
 ntp_timezone: US/Central
+
+# Accounts
+accounts:
+  - name: vlad
+    comment: 'Vlad Ghinea'
+    uid: 8523
+    groups: admins
+    append: yes
+    shell: /bin/bash
+    authorized_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE0yyqRUbBGOW9PcYyuaUMaRi/EFwL59E3wwMn5dJAKQ vlad@ghn.me
+
