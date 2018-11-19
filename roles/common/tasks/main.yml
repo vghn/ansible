@@ -19,11 +19,12 @@
 - name: "Create user accounts"
   user:
     name: "{{ item.name }}"
-    comment: "{{ item.comment }}"
-    uid: "{{ item.uid }}"
-    groups: "{{ item.groups | default(none) }}"
-    append: "{{ item.append | default('yes') }}"
-    shell: "{{ item.shell | default('/bin/bash') }}"
+    comment: "{{ item.comment | default(omit) }}"
+    uid: "{{ item.uid | default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
+    groups: "{{ item.groups | default(omit) }}"
+    append: "{{ item.append | default(omit) }}"
+    shell: "{{ item.shell | default(omit) }}"
   with_items: "{{ accounts }}"
 
 - name: "Add authorized keys"
