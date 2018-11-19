@@ -1,6 +1,7 @@
 # Galaxy
 - src: dev-sec.os-hardening
 - src: dev-sec.ssh-hardening
+- src: geerlingguy.pip
 - src: geerlingguy.docker
 - src: geerlingguy.firewall
 - src: geerlingguy.ntp
