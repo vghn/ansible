@@ -33,3 +33,16 @@
     key: "{{ item.authorized_key }}"
   when: item.authorized_key is defined
   with_items: "{{ accounts }}"
+
+# Apt repositories
+- name: Ensure Ubuntu universe repo is enabled ({{ ansible_distribution_version }} >= 16.04)
+  apt_repository:
+    repo: "deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release|lower }} universe"
+    state: present
+  when: ansible_distribution_version >= '16.04'
+
+- name: "Add extra APT repositories"
+  apt_repository:
+    repo: "{{ item.repo }}"
+  with_items: "{{ apt_repositories }}"
+  when: apt_repositories is defined
