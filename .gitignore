@@ -1,2 +1,7 @@
 # Ansible
 *.retry
+tests/roles/
+
+# Vagrant
+.vagrant
+*.log
