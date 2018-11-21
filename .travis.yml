@@ -14,17 +14,18 @@ before_install:
   - git clone https://github.com/vghn/vgs.git ~/vgs
   - sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce
   - docker --version
-install: |
-  docker pull "${DISTRIBUTION}":"${VERSION}"
-  docker build --no-cache --rm --file="tests/Dockerfile.${DISTRIBUTION}-${VERSION}" --tag="${DISTRIBUTION}-${VERSION}":ansible tests
-script: |
-  CONTAINER_ID="$(mktemp)"
-  docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/ansible:ro "${DISTRIBUTION}-${VERSION}ansible > "${CONTAINER_ID}"
-  docker exec -w /ansible "$(cat ${CONTAINER_ID})" env ANSIBLE_FORCE_COLOR=1 ansible-galaxy install --role-file requirements.yml
-  docker exec -w /ansible "$(cat ${CONTAINER_ID})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory sts/inventory tests/test.yml --syntax-check
-  docker exec -w /ansible "$(cat ${CONTAINER_ID})" env ANSIBLE_RETRY_FILES_ENABLED=false ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml
-  docker exec -w /ansible "$(cat ${CONTAINER_ID})" env ANSIBLE_RETRY_FILES_ENABLED=false ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml | grep -q 'changed=0.*failed=0' && ( echo 'Idempotence test: pass' && exit 0 ) || ( echo 'Idempotence test: fail' && exit 1 )
-  docker rm -f "$(cat ${CONTAINER_ID})" || true
+install:
+  - docker pull "${DISTRIBUTION}":"${VERSION}"
+  - docker build --no-cache --rm --file="tests/Dockerfile.${DISTRIBUTION}-${VERSION}" --tag="${DISTRIBUTION}-${VERSION}":ansible tests
+script:
+  - CONTAINER_ID="$(mktemp)"
+  - docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/ansible:ro "${DISTRIBUTION}-${VERSION}ansible > "${CONTAINER_ID}"
+  - docker exec -w /ansible "$(cat ${CONTAINER_ID})" env ANSIBLE_FORCE_COLOR=1 ansible-galaxy install --role-file requirements.yml
+  - docker exec -w /ansible "$(cat ${CONTAINER_ID})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory sts/inventory tests/test.yml --syntax-check
+  - docker exec -w /ansible "$(cat ${CONTAINER_ID})" env ANSIBLE_RETRY_FILES_ENABLED=false ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml
+  - |
+    docker exec -w /ansible "$(cat ${CONTAINER_ID})" env ANSIBLE_RETRY_FILES_ENABLED=false ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml | grep -q 'changed=0.*failed=0' && ( echo 'Idempotence test: pass' && exit 0 ) || ( echo 'Idempotence test: fail' && exit 1 )
+  - docker rm -f "$(cat ${CONTAINER_ID})" || true
 notifications:
   webhooks:
     urls: https://vbot.ghn.me/travis
