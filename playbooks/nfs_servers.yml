@@ -3,3 +3,13 @@
   become: yes
   roles:
     - geerlingguy.nfs
+
+- hosts: cosmin_nfs_servers
+  become: yes
+  tasks:
+    - name: Create mountable dir
+      file:
+        path: /data
+        state: directory
+        owner: cmedia
+        group: cmedia

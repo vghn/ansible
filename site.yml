@@ -4,3 +4,4 @@
 - import_playbook: playbooks/cosmin.yml
 - import_playbook: playbooks/docker_servers.yml
 - import_playbook: playbooks/nfs_servers.yml
+- import_playbook: playbooks/nfs_clients.yml

@@ -14,8 +14,16 @@ vega
 rhea
 prometheus
 vnuc
-nebula
 vega
 
 [nfs_servers]
 nebula
+
+[nfs_clients]
+vega
+
+[cosmin_nfs_servers]
+nebula
+
+[cosmin_nfs_clients]
+vega
