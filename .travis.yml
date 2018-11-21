@@ -18,7 +18,7 @@ install:
   - docker pull "${distribution}":"${version}"
   - docker build --no-cache --rm --file="tests/Dockerfile.${distribution}-${version}" --tag="${distribution}-${version}":ansible tests
 script:
-  - container_id=$(mktemp)
+  - container_id="$(mktemp)"
   - docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/ansible:ro "${distribution}-${version}":ansible > "${container_id}"
   - docker exec -w /ansible "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-galaxy install --role-file requirements.yml
   - docker exec -w /ansible "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml --syntax-check
