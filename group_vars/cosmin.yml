@@ -23,10 +23,6 @@ accounts:
     uid: 7777
 
 # Docker
-docker_edition: ce
-docker_package: "docker-{{ docker_edition }}"
-docker_package_state: present
-docker_install_compose: true
 docker_users:
   - vlad
   - cosmin

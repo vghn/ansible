@@ -11,7 +11,11 @@ apt_repositories:
 pip_install_packages:
   - name: docker
 
-# Package versions
+# Docker
+docker_edition: 'ce'
+docker_package: "docker-{{ docker_edition }}"
+docker_package_state: present
+docker_install_compose: true
 docker_compose_version: '1.23.1'
 
 # Security

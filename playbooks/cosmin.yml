@@ -1,4 +1,3 @@
 ---
 - hosts: cosmin
   become: yes
-  roles:
