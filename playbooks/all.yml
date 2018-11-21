@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: yes
+  roles:
+    - roles/common
+    - geerlingguy.security
+    - geerlingguy.ntp
+    - geerlingguy.pip

@@ -9,3 +9,11 @@ vnuc
 [cosmin]
 nebula
 vega
+
+[docker_servers]
+rhea
+prometheus
+vnuc
+nebula
+vega
+

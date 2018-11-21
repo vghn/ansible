@@ -1,0 +1,5 @@
+---
+- hosts: docker_servers
+  become: yes
+  roles:
+    - geerlingguy.docker

@@ -1,14 +1,4 @@
 ---
 - hosts: cosmin
   become: yes
-
-  vars:
-    pip_install_packages:
-      - name: docker
-
   roles:
-    - roles/common
-    - geerlingguy.security
-    - geerlingguy.ntp
-    - geerlingguy.pip
-    - geerlingguy.docker

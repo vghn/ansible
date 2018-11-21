@@ -3,7 +3,7 @@
 ntp_timezone: Etc/UTC
 
 # Package versions
-# docker_compose_version: '1.23.1'
+docker_compose_version: '1.23.1'
 
 # Security
 security_ssh_password_authentication: 'no'
