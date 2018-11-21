@@ -7,6 +7,10 @@ apt_repositories:
   - name: GIT
     repo: ppa:git-core/ppa
 
+# Python packages
+pip_install_packages:
+  - name: docker
+
 # Package versions
 docker_compose_version: '1.23.1'
 
