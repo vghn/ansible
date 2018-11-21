@@ -25,13 +25,14 @@
     groups: "{{ item.groups | default(omit) }}"
     append: "{{ item.append | default(omit) }}"
     shell: "{{ item.shell | default(omit) }}"
+  when: accounts is defined
   with_items: "{{ accounts }}"
 
 - name: "Add authorized keys"
   authorized_key:
     user: "{{ item.name }}"
     key: "{{ item.authorized_key }}"
-  when: item.authorized_key is defined
+  when: accounts is defined and item.authorized_key is defined
   with_items: "{{ accounts }}"
 
 # Apt repositories
