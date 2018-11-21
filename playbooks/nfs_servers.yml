@@ -1,0 +1,5 @@
+---
+- hosts: nfs_servers
+  become: yes
+  roles:
+    - geerlingguy.nfs

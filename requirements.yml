@@ -6,3 +6,4 @@
 - src: geerlingguy.firewall
 - src: geerlingguy.ntp
 - src: geerlingguy.security
+- src: geerlingguy.nfs
