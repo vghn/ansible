@@ -2,7 +2,7 @@ FROM ubuntu:bionic
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && apt-get -qy dist-upgrade -y && \
-    apt-get install -y software-properties-common systemd && \
+    apt-get install -y software-properties-common systemd sudo openssh-server && \
     apt-get -y clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN apt-add-repository -y ppa:ansible/ansible && \
