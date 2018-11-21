@@ -23,7 +23,8 @@ script:
   - docker exec -w /ansible "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-galaxy install --role-file requirements.yml
   - docker exec -w /ansible "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml --syntax-check
   - docker exec -w /ansible "$(cat ${container_id})" env ANSIBLE_RETRY_FILES_ENABLED=false ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml
-  - docker exec -w /ansible "$(cat ${container_id})" env ANSIBLE_RETRY_FILES_ENABLED=false ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml | grep -q 'changed=0.*failed=0' && ( echo 'Idempotence test: pass' && exit 0 ) || ( echo 'Idempotence test: fail' && exit 1 )
+  - |
+    docker exec -w /ansible "$(cat ${container_id})" env ANSIBLE_RETRY_FILES_ENABLED=false ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml | grep -q 'changed=0.*failed=0' && ( echo 'Idempotence test: pass' && exit 0 ) || ( echo 'Idempotence test: fail' && exit 1 )
   - docker rm -f "$(cat ${container_id})" || true
 notifications:
   webhooks:
