@@ -7,8 +7,8 @@ IFS=$'\n\t'
 # DEBUG
 [ -z "${DEBUG:-}" ] || set -x
 
-# System
-sudo apt-get update && sudo apt-get -qy dist-upgrade && sudo apt-get -y autoremove --purge && sudo apt-get -qy clean
+# Update APT
+sudo apt-get update
 
 # Install Python
 sudo apt-get -qy install python-minimal
