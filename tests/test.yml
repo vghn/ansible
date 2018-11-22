@@ -1,8 +1,5 @@
 ---
-- hosts: all
+- hosts: localhost
   become: yes
-
   roles:
     - roles/common
-
-  tasks:
