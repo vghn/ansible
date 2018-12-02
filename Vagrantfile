@@ -4,6 +4,7 @@
 role = File.basename(File.expand_path(File.dirname(__FILE__)))
 
 ENV['ANSIBLE_ROLES_PATH'] = "../"
+ENV["VAGRANT_OLD_ENV_OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
 
 boxes = [
   {
