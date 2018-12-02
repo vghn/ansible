@@ -7,17 +7,11 @@ IFS=$'\n\t'
 # DEBUG
 [ -z "${DEBUG:-}" ] || set -x
 
-# Update APT
-sudo apt-get update
-
-# Install Python
-sudo apt-get -qy install python-minimal
-
 # Create deploy user
 id -u deploy &>/dev/null || sudo useradd -m -s /bin/bash -U deploy
 
 #  Add authorized_key
-key='ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEcgOJRwnx/+oY/s4k/NkSYDEKCjHVm1cwkhFFVTDuBq Deploy'
+key='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+4vPJ554LgwIZ7qK2DoipJe9U2yuRwUZpTtjJ4EHqASn+KUbWX8XA7ipwLloQiWO25U5S4UjAxy3jcd2ykkQWD2XeXnE9qZZTgRAJfOpTKNIlng7NBPg9gHJcUADU8EXTd52sYQRl67inQpExb9TnshAAmrShh2T2cVqzybLdHbukchEHRUgKINp/Ci/zPffhv7yWKz4EUzvZdisRVgd3tuHJotvrHk18OOhSaGGlcuiig2AQgpd4MV7+yyyYoT0keOPiRrf3OAAnFMzaQbaoekDvwRg8GmCY3oFZVzsxehB+jTGj1ICz60L8qTN2oeD6zOw1EQWOQldNw5TnTuUz deploy'
 grep -q "$key" /home/deploy/.ssh/authorized_keys || (
   sudo -u deploy mkdir -p /home/deploy/.ssh
   echo "$key" | sudo -u deploy tee -a /home/deploy/.ssh/authorized_keys
