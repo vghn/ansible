@@ -1,0 +1,24 @@
+---
+# Add extra CA Certificates
+- name: Install ca-certificates package on debian systems
+  apt:
+    name: ca-certificates
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Ensure local certs directory exists
+  file:
+    state: directory
+    path: /usr/local/share/ca-certificates
+
+- name: Install CA Certificates
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/share/ca-certificates/
+    owner: root
+    group: root
+    mode: 0644
+  with_fileglob:
+    - "ca/*"
+  notify:
+    - Update trusted CA certificates Debian

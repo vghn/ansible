@@ -15,3 +15,4 @@ accounts:
 # Docker
 docker_users:
   - vlad
+  - deploy

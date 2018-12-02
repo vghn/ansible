@@ -21,7 +21,7 @@
     - name: Set mountpoints
       mount:
         name: /data
-        src: "{{ hostvars['nebula'].ansible_default_ipv4.address }}:/data"
+        src: "{{ hostvars['nebula']['ansible_default_ipv4']['address'] }}:/data"
         fstype: nfs
         opts: hard,rsize=1048576,wsize=1048576,timeo=600,retrans=2,_netdev
         dump: 0

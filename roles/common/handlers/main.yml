@@ -1,5 +1,9 @@
 ---
-- name: "Restart sshd"
+- name: Restart sshd
   service:
-    name: "sshd"
-    state: "restarted"
+    name: sshd
+    state: restarted
+
+- name: Update trusted CA certificates Debian
+  command: /usr/sbin/update-ca-certificates --fresh
+  when: ansible_os_family == "Debian"

@@ -1,3 +1,20 @@
 ---
 # Security
 security_fail2ban_enabled: true
+
+# Firewall
+firewall_state: started
+firewall_enabled_at_boot: true
+firewall_allowed_tcp_ports:
+  - "22" # SSH
+  - "80" # HTTP
+  - "443" # HTTPS
+  - "8080" # UNIFI
+  - "8443"
+  - "8880"
+  - "8843"
+  - "6789"
+  - "3478"
+  - "10001"
+firewall_additional_rules:
+ -"iptables -A INPUT -s 18.210.236.53/32 -p tcp -m multiport --dports 9100,9101 -j ACCEPT" # Allow Prometheus

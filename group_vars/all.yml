@@ -1,4 +1,19 @@
 ---
+# Essential packages
+software:
+  - curl
+  - htop
+  - tmux
+  - unzip
+  - vim
+  - wget
+  - jq
+
+# Python packages
+pip_install_packages:
+  - awscli
+  - docker
+
 # System
 ntp_timezone: Etc/UTC
 
@@ -6,17 +21,6 @@ ntp_timezone: Etc/UTC
 apt_repositories:
   - name: GIT
     repo: ppa:git-core/ppa
-
-# Python packages
-pip_install_packages:
-  - name: docker
-
-# Docker
-docker_edition: 'ce'
-docker_package: "docker-{{ docker_edition }}"
-docker_package_state: present
-docker_install_compose: true
-docker_compose_version: '1.23.1'
 
 # Security
 security_ssh_password_authentication: 'no'

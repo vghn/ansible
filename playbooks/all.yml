@@ -2,7 +2,8 @@
 - hosts: all
   become: yes
   roles:
-    - roles/common
+    - common
     - geerlingguy.security
     - geerlingguy.ntp
     - geerlingguy.pip
+    - cloudalchemy.node-exporter

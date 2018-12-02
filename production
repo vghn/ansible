@@ -1,20 +1,23 @@
-[all:vars]
-ansible_user = deploy
-
 [vgh]
-rhea
 prometheus
+rhea
 vnuc
 
 [cosmin]
 nebula
+unifi
 vega
 
-[docker_servers]
-rhea
+[aws]
 prometheus
-vnuc
+unifi
+
+[docker]
+prometheus
+rhea
+unifi
 vega
+vnuc
 
 [nfs_servers]
 nebula
