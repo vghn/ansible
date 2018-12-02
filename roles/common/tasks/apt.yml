@@ -17,4 +17,4 @@
   apt:
     name: '{{ software }}'
     state: present
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" and software is defined
