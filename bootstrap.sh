@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+# Bootstrap script
+
+# Usage:
+# $ curl -fsSL https://raw.githubusercontent.com/vghn/ansible/master/bootstrap.sh | sudo bash
+
+# **Note:** Our code is completely open, but piping to bash can be dangerous and is not recommended for production systems. For a safer install, review the code and then run the installer locally.
 
 # Bash strict mode
 set -euo pipefail
