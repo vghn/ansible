@@ -1,3 +1,4 @@
 ---
-- hosts: cosmin
+- name: Cosmin's hosts
+  hosts: cosmin
   become: yes

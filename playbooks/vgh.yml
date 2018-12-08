@@ -1,3 +1,4 @@
 ---
-- hosts: vgh
+- name: Vlad's hosts
+  hosts: vgh
   become: yes

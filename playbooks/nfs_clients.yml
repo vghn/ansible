@@ -1,5 +1,6 @@
 ---
-- hosts: nfs_clients
+- name: NFS client hosts
+  hosts: nfs_clients
   become: yes
   tasks:
     - name: Ensure NFS common is installed.
@@ -8,7 +9,8 @@
         state: present
         update_cache: yes
 
-- hosts: cosmin_nfs_clients
+- name: Cosmin's NFS client hosts
+  hosts: cosmin_nfs_clients
   become: yes
   tasks:
     - name: Create mountable dir
@@ -17,7 +19,6 @@
         state: directory
         owner: cmedia
         group: cmedia
-
     - name: Set mountpoints
       mount:
         name: /data

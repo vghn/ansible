@@ -1,10 +1,12 @@
 ---
-- hosts: nfs_servers
+- name: NFS server hosts
+  hosts: nfs_servers
   become: yes
   roles:
     - geerlingguy.nfs
 
-- hosts: cosmin_nfs_servers
+- name: Cosmin's NFS server hosts
+  hosts: cosmin_nfs_servers
   become: yes
   tasks:
     - name: Create mountable dir
