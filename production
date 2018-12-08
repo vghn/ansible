@@ -1,12 +1,8 @@
 [vgh]
 prometheus
-rhea
-vnuc
 
 [cosmin]
-nebula
 unifi
-vega
 
 [aws]
 prometheus
@@ -14,19 +10,4 @@ unifi
 
 [docker]
 prometheus
-rhea
 unifi
-vega
-vnuc
-
-[nfs_servers]
-nebula
-
-[nfs_clients]
-vega
-
-[cosmin_nfs_servers]
-nebula
-
-[cosmin_nfs_clients]
-vega
