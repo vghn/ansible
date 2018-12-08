@@ -25,7 +25,7 @@ process_cli(){
       docker rm -f "${CONTAINER_ID}" || true
       ;;
     deploy)
-      ansible-galaxy install --roles-path roles/galaxy --role-file roles/requirements.yml
+      ansible-galaxy install --force --roles-path roles/galaxy --role-file roles/requirements.yml
       ansible-playbook -i production site.yml
       ;;
     *)
