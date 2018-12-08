@@ -6,4 +6,5 @@
     - geerlingguy.security
     - geerlingguy.ntp
     - geerlingguy.pip
-    - cloudalchemy.node-exporter
+    - role: cloudalchemy.node-exporter
+      when: ansible_service_mgr is defined and ansible_service_mgr == 'systemd'
