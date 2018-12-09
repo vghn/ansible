@@ -1,15 +1,16 @@
 dist: xenial
 services: docker
 env:
-  GIT_BRANCH: "$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
-  SC_VERSION: "stable" # or "v0.4.7", or "latest"
+  global:
+    GIT_BRANCH: "$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
+    SC_VERSION: "stable" # or "v0.4.7", or "latest"
+  matrix:
+    - DISTRIBUTION=ubuntu VERSION=bionic
+    - DISTRIBUTION=ubuntu VERSION=xenial
+    - DISTRIBUTION=ubuntu VERSION=trusty
 jobs:
   include:
     - stage: "Tests"
-      env:
-        - DISTRIBUTION=ubuntu VERSION=bionic
-        - DISTRIBUTION=ubuntu VERSION=xenial
-        - DISTRIBUTION=ubuntu VERSION=trusty
       script: |
         wget "https://storage.googleapis.com/shellcheck/shellcheck-${SC_VERSION}.linux.x86_64.tar.xz"
         tar --xz -xvf "shellcheck-${SC_VERSION}.linux.x86_64.tar.xz"
@@ -22,6 +23,7 @@ jobs:
         ./bin/run test
     - stage: "Deploy"
       if: branch = master AND type != pull_request
+      env:
       script: |
         pip install --user --upgrade ansible
         ansible --version
