@@ -3,23 +3,16 @@ services: docker
 env:
   global:
     GIT_BRANCH: "$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
-    SC_VERSION: "stable" # or "v0.4.7", or "latest"
   matrix:
     - DISTRIBUTION=ubuntu VERSION=trusty
     - DISTRIBUTION=ubuntu VERSION=bionic
     - DISTRIBUTION=ubuntu VERSION=xenial
 install:
-  - |
-    wget "https://storage.googleapis.com/shellcheck/shellcheck-${SC_VERSION}.linux.x86_64.tar.xz"
-    tar --xz -xvf "shellcheck-${SC_VERSION}.linux.x86_64.tar.xz"
-    shellcheck() { "shellcheck-${SC_VERSION}/shellcheck" "$@"; }
-  - shellcheck --version
   - sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce
   - docker --version
 script: ./bin/run build && ./bin/run test
 jobs:
   include:
-    - stage: "Test"
     - stage: "Deploy"
       if: branch = master AND type != pull_request
       env:
