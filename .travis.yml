@@ -1,8 +1,8 @@
 dist: xenial
 services: docker
 env:
-  - GIT_BRANCH="$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
-  - SC_VERSION='stable' # or "v0.4.7", or "latest"
+  GIT_BRANCH: "$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
+  SC_VERSION: "stable" # or "v0.4.7", or "latest"
 jobs:
   include:
     - stage: "Tests"
