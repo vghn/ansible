@@ -25,7 +25,8 @@ process_cli(){
       docker rm -f "${CONTAINER_ID}" || true
       ;;
     deploy)
-      ansible-playbook -i production site.yml
+      ANSIBLE_FORCE_COLOR=1 ansible-galaxy install --roles-path roles/galaxy --role-file roles/requirements.yml
+      ANSIBLE_RETRY_FILES_ENABLED=false ANSIBLE_FORCE_COLOR=1 ansible-playbook -i production site.yml
       ;;
     *)
       usage

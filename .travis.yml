@@ -1,27 +1,32 @@
 dist: xenial
 services: docker
 env:
-  global:
   - GIT_BRANCH="$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
-  matrix:
-  - DISTRIBUTION=ubuntu VERSION=bionic
-  - DISTRIBUTION=ubuntu VERSION=xenial
-  - DISTRIBUTION=ubuntu VERSION=trusty
-before_install:
-  - git clone https://github.com/vghn/vgs.git ~/vgs
-  - sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce
-  - docker --version
-  - pip install --user --upgrade ansible
-  - ansible --version
-  - ( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 --output ~/.ssh/deploy_rsa deploy_rsa.gpg && chmod 600 ~/.ssh/deploy_rsa
-install: ./bin/run build
-script: ./bin/run test
-deploy:
-  provider: script
-  script: ./bin/run deploy
-  skip_cleanup: true
-  on:
-    branch: master
+  - SC_VERSION='stable' # or "v0.4.7", or "latest"
+jobs:
+  include:
+    - stage: "Tests"
+      env:
+        - DISTRIBUTION=ubuntu VERSION=bionic
+        - DISTRIBUTION=ubuntu VERSION=xenial
+        - DISTRIBUTION=ubuntu VERSION=trusty
+      script: |
+        wget "https://storage.googleapis.com/shellcheck/shellcheck-${SC_VERSION}.linux.x86_64.tar.xz"
+        tar --xz -xvf "shellcheck-${SC_VERSION}.linux.x86_64.tar.xz"
+        shellcheck() { "shellcheck-${SC_VERSION}/shellcheck" "$@"; }
+        shellcheck --version
+        sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce
+        docker --version
+        find ./bin -type f -exec shellcheck {} +
+        ./bin/run build
+        ./bin/run test
+    - stage: "Deploy"
+      if: branch = master AND type != pull_request
+      script: |
+        pip install --user --upgrade ansible
+        ansible --version
+        ( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 --output ~/.ssh/deploy_rsa deploy_rsa.gpg && chmod 600 ~/.ssh/deploy_rsa
+        ./bin/run deploy
 notifications:
   webhooks:
     urls: https://vbot.ghn.me/travis
