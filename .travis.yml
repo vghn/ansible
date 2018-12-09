@@ -8,16 +8,18 @@ env:
     - DISTRIBUTION=ubuntu VERSION=bionic
     - DISTRIBUTION=ubuntu VERSION=xenial
     - DISTRIBUTION=ubuntu VERSION=trusty
-script: |
-  wget "https://storage.googleapis.com/shellcheck/shellcheck-${SC_VERSION}.linux.x86_64.tar.xz"
-  tar --xz -xvf "shellcheck-${SC_VERSION}.linux.x86_64.tar.xz"
-  shellcheck() { "shellcheck-${SC_VERSION}/shellcheck" "$@"; }
-  shellcheck --version
-  sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce
-  docker --version
-  find ./bin -type f -exec shellcheck {} +
-  ./bin/run build
-  ./bin/run test
+install:
+  - |
+    wget "https://storage.googleapis.com/shellcheck/shellcheck-${SC_VERSION}.linux.x86_64.tar.xz"
+    tar --xz -xvf "shellcheck-${SC_VERSION}.linux.x86_64.tar.xz"
+    shellcheck() { "shellcheck-${SC_VERSION}/shellcheck" "$@"; }
+  - shellcheck --version
+  - sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce
+  - docker --version
+script:
+  - find ./bin -type f -exec shellcheck {} +
+  - ./bin/run build
+  - ./bin/run test
 
 jobs:
   include:
