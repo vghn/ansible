@@ -19,6 +19,7 @@ script: ./bin/run test
 deploy:
   provider: script
   script: ./bin/run deploy
+  skip_cleanup: true
   on:
     branch: master
 notifications:
