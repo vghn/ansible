@@ -13,7 +13,7 @@ before_install:
   - docker --version
   - pip install --user --upgrade ansible
   - ansible --version
-  - ( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 --output ~/.ssh/deploy_rsa deploy_rsa.gpg
+  - ( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 --output ~/.ssh/deploy_rsa deploy_rsa.gpg && chmod 600 ~/.ssh/deploy_rsa
 install: ./bin/run build
 script: ./bin/run test
 deploy:
