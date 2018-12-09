@@ -4,10 +4,6 @@ env:
   global:
     GIT_BRANCH: "$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
     SC_VERSION: "stable" # or "v0.4.7", or "latest"
-  matrix:
-    - DISTRIBUTION=ubuntu VERSION=bionic
-    - DISTRIBUTION=ubuntu VERSION=xenial
-    - DISTRIBUTION=ubuntu VERSION=trusty
 install:
   - |
     wget "https://storage.googleapis.com/shellcheck/shellcheck-${SC_VERSION}.linux.x86_64.tar.xz"
@@ -16,19 +12,25 @@ install:
   - shellcheck --version
   - sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce
   - docker --version
-script:
-  - find ./bin -type f -exec shellcheck {} +
-  - ./bin/run build
-  - ./bin/run test
-
+  - pip install --user --upgrade ansible
+  - ansible --version
 jobs:
   include:
+    - stage: "Test"
+      env:
+        - DISTRIBUTION=ubuntu VERSION=trusty
+      script: ./bin/run build && ./bin/run test
+    - stage: "Test"
+      env:
+        - DISTRIBUTION=ubuntu VERSION=xenial
+      script: ./bin/run build && ./bin/run test
+    - stage: "Test"
+      env:
+        - DISTRIBUTION=ubuntu VERSION=bionic
+      script: ./bin/run build && ./bin/run test
     - stage: "Deploy"
       if: branch = master AND type != pull_request
-      env:
       script: |
-        pip install --user --upgrade ansible
-        ansible --version
         ( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 --output ~/.ssh/deploy_rsa deploy_rsa.gpg && chmod 600 ~/.ssh/deploy_rsa
         ./bin/run deploy
 notifications:
