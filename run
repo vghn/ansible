@@ -35,10 +35,6 @@ APPDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 VERSION=$(git --git-dir="${APPDIR}/.git" --work-tree="${APPDIR}" describe --always --tags)
 export NOW TMPDIR APPDIR VERSION
 
-# Load encrypted environment
-# shellcheck disable=1090
-. <( ( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 .env.gpg ) 2>/dev/null || true
-
 # Output
 e_ok()    { printf "  ✔  %s\\n" "$@" ;}
 e_info()  { printf "  ➜  %s\\n" "$@" ;}
@@ -66,11 +62,11 @@ process_cli(){
 
   case "$cmd" in
     build)
-      docker pull "${DISTRIBUTION}:${VERSION}"
-      docker build --no-cache --rm --file="tests/Dockerfile.${DISTRIBUTION}-${VERSION}" --tag="${DISTRIBUTION}-${VERSION}:ansible" tests
+      docker pull "${DISTRIBUTION}:${CODENAME}"
+      docker build --no-cache --rm --file="tests/Dockerfile.${DISTRIBUTION}-${CODENAME}" --tag="${DISTRIBUTION}-${CODENAME}:ansible" tests
       ;;
     test)
-      CONTAINER_ID=$(docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}:/ansible" "${DISTRIBUTION}-${VERSION}:ansible")
+      CONTAINER_ID=$(docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}:/ansible" "${DISTRIBUTION}-${CODENAME}:ansible")
       docker exec -w /ansible "${CONTAINER_ID}" env ANSIBLE_FORCE_COLOR=1 ansible-galaxy install --roles-path roles/galaxy --role-file roles/requirements.yml
       docker exec -w /ansible "${CONTAINER_ID}" env ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml --syntax-check
       docker exec -w /ansible "${CONTAINER_ID}" env ANSIBLE_RETRY_FILES_ENABLED=false ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml

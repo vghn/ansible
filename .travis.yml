@@ -4,9 +4,9 @@ env:
   global:
     GIT_BRANCH: "$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
   matrix:
-    - DISTRIBUTION=ubuntu VERSION=trusty
-    - DISTRIBUTION=ubuntu VERSION=bionic
-    - DISTRIBUTION=ubuntu VERSION=xenial
+    - DISTRIBUTION=ubuntu CODENAME=trusty
+    - DISTRIBUTION=ubuntu CODENAME=bionic
+    - DISTRIBUTION=ubuntu CODENAME=xenial
 install:
   - sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce && docker --version
   - pip install --user --upgrade ansible && ansible --version
