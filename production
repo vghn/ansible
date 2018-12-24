@@ -2,12 +2,9 @@
 prometheus
 
 [cosmin]
-unifi
 
 [aws]
 prometheus
-unifi
 
 [docker]
 prometheus
-unifi

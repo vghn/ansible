@@ -1,6 +1,0 @@
----
-- name: Docker hosts
-  hosts: docker
-  become: yes
-  roles:
-    - geerlingguy.docker

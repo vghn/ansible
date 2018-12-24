@@ -9,3 +9,8 @@
     - geerlingguy.pip
     - role: cloudalchemy.node-exporter
       when: ansible_service_mgr is defined and ansible_service_mgr == 'systemd'
+- name: Docker hosts
+  hosts: docker
+  become: yes
+  roles:
+    - geerlingguy.docker

@@ -1,3 +1,0 @@
----
-nfs_exports:
-  - '/data *(rw,sync,all_squash,anonuid=7777,anongid=7777)'

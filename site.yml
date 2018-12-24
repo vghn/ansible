@@ -29,6 +29,3 @@
 - import_playbook: playbooks/all.yml
 - import_playbook: playbooks/vgh.yml
 - import_playbook: playbooks/cosmin.yml
-- import_playbook: playbooks/docker.yml
-- import_playbook: playbooks/nfs_servers.yml
-- import_playbook: playbooks/nfs_clients.yml
