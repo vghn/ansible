@@ -2,7 +2,7 @@ dist: xenial
 services: docker
 env:
   global:
-    GIT_BRANCH: "$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
+    - GIT_BRANCH="$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
   matrix:
     - DISTRIBUTION=ubuntu CODENAME=trusty
     - DISTRIBUTION=ubuntu CODENAME=bionic
@@ -17,6 +17,8 @@ jobs:
   include:
     - stage: "Deploy"
       if: branch = master AND type != pull_request
+      env:
+        matrix: []
       before_script: |
         if [[ "$TRAVIS_BRANCH" == master && "$TRAVIS_PULL_REQUEST" == false ]]; then
           . <( ( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 .env.gpg ) 2>/dev/null || true
