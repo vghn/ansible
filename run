@@ -70,6 +70,7 @@ process_cli(){
       docker exec -w /ansible "${CONTAINER_ID}" env ANSIBLE_FORCE_COLOR=1 ansible-galaxy install --roles-path roles/galaxy --role-file roles/requirements.yml
       docker exec -w /ansible "${CONTAINER_ID}" env ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml --syntax-check
       docker exec -w /ansible "${CONTAINER_ID}" env ANSIBLE_RETRY_FILES_ENABLED=false ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml
+      docker exec -w /ansible "${CONTAINER_ID}" env ANSIBLE_RETRY_FILES_ENABLED=false ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml
       if docker exec -w /ansible "${CONTAINER_ID}" env ANSIBLE_RETRY_FILES_ENABLED=false ANSIBLE_FORCE_COLOR=1 ansible-playbook --verbose --inventory tests/inventory tests/test.yml | grep -q 'changed=0.*failed=0'; then
         echo 'Idempotence test: pass' && exit 0
       else
