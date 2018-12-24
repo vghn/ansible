@@ -1,3 +1,6 @@
+# Private
+.env
+
 # Ansible
 *.retry
 roles/galaxy/

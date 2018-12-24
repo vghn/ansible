@@ -8,20 +8,22 @@ env:
     - DISTRIBUTION=ubuntu VERSION=bionic
     - DISTRIBUTION=ubuntu VERSION=xenial
 install:
-  - sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce
-  - docker --version
-script: ./bin/run build && ./bin/run test
+  - sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce && docker --version
+  - pip install --user --upgrade ansible && ansible --version
+before_script: |
+  if [[ "$TRAVIS_BRANCH" == master && "$TRAVIS_PULL_REQUEST" == false ]]; then
+    . <( ( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 .env.gpg ) 2>/dev/null || true
+    echo "${DEPLOY_RSA:-}" | base64 --decode --ignore-garbage > ~/.ssh/deploy_rsa
+    chmod 600 ~/.ssh/deploy_rsa
+  fi
+script:
+  - ./run build
+  - ./run test
 jobs:
   include:
     - stage: "Deploy"
       if: branch = master AND type != pull_request
-      env:
-      install:
-        - pip install --user --upgrade ansible
-        - ansible --version
-      script:
-        - ( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 --output ~/.ssh/deploy_rsa deploy_rsa.gpg && chmod 600 ~/.ssh/deploy_rsa
-        - ./bin/run deploy
+      script: ./run deploy
 notifications:
   webhooks:
     urls: https://vbot.ghn.me/travis
