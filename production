@@ -1,3 +1,5 @@
+prometheus ansible_host=prometheus.ghn.me
+
 [vgh]
 prometheus
 
