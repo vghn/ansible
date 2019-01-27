@@ -1,0 +1,9 @@
+---
+- name: Add swap on hosts
+  hosts: all
+  become: yes
+  vars:
+    swap_file_size_mb: '1024'
+  roles:
+    - role: geerlingguy.swap
+      when: swap_enable

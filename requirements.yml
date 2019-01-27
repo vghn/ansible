@@ -1,10 +1,14 @@
 ---
+- src: bertvv.samba
 - src: cloudalchemy.node-exporter
 - src: dev-sec.os-hardening
 - src: dev-sec.ssh-hardening
-- src: geerlingguy.pip
 - src: geerlingguy.docker
 - src: geerlingguy.firewall
-- src: geerlingguy.ntp
-- src: geerlingguy.security
 - src: geerlingguy.nfs
+- src: geerlingguy.ntp
+- src: geerlingguy.pip
+- src: geerlingguy.repo-epel
+- src: geerlingguy.security
+- src: geerlingguy.swap
+- src: vladgh.common

@@ -1,6 +1,9 @@
 ---
+# System
+ntp_timezone: US/Central
+
 # Essential packages
-software:
+debian_software:
   - curl
   - htop
   - tmux
@@ -14,9 +17,6 @@ pip_install_packages:
   - awscli
   - docker
 
-# System
-ntp_timezone: Etc/UTC
-
 # Apt repositories
 apt_repositories:
   - name: GIT
@@ -26,3 +26,17 @@ apt_repositories:
 security_ssh_password_authentication: 'no'
 security_ssh_permit_root_login: 'no'
 security_autoupdate_enabled: true
+
+# Accounts
+accounts:
+  - name: vlad
+    comment: Vlad Ghinea
+    uid: 8523
+    groups: admins
+    append: yes
+    shell: /bin/bash
+    authorized_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE0yyqRUbBGOW9PcYyuaUMaRi/EFwL59E3wwMn5dJAKQ vlad@ghn.me
+
+# Docker
+docker_users:
+  - vlad

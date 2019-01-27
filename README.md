@@ -8,34 +8,120 @@ This project is still in a prototype development stage.
 
 ## Overview
 
-Vlad's Ansible playbooks
+Ansible playbooks
 
-## SSH Deploy Key
+## Ansible Control
 
-Create encryption key and upload it to TravisCI
+### Create SSH key
+
+```sh
+ssh-keygen -t rsa -b 4096 -C 'Ansible' -f ansible_rsa
+```
+
+### Encrypt sensitive files
+
+Create encryption key and optionally upload it to TravisCI
 
 ```sh
 export ENCRYPT_KEY="$(echo "MyVeryStrongPassphrase" | base64)"
 travis env set ENCRYPT_KEY "$ENCRYPT_KEY" --private --com
 ```
 
-Encrypt the deploy ssh key
+Encrypt the sensitive files
 
 ```sh
-( echo "$ENCRYPT_KEY" | base64 --decode ) | gpg --symmetric --passphrase-fd 0 --batch --yes --cipher-algo AES256 --s2k-digest-algo SHA512 --output deploy_rsa.gpg ~/.ssh/deploy_rsa
+( echo "$ENCRYPT_KEY" | base64 --decode ) | gpg --symmetric --passphrase-fd 0 --batch --yes --cipher-algo AES256 --s2k-digest-algo SHA512 --output ansible_rsa.gpg ansible_rsa
 ```
 
-Decrypt the deploy ssh key
+Decrypt the sensitive files
 
 ```sh
-( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 --output ~/.ssh/deploy_rsa deploy_rsa.gpg
+( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 --output ansible_rsa ansible_rsa.gpg
 ```
 
-## Contribute
+### Install Ansible
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) file.
+Ubuntu
 
-## License
+```sh
+sudo apt update && sudo apt install -y software-properties-common
+sudo apt-add-repository -y --update ppa:ansible/ansible
+sudo apt-get install -y ansible
+```
 
-Licensed under the Apache License, Version 2.0.
-See [LICENSE](LICENSE) file.
+CentOS
+
+```sh
+sudo yum install -y epel-release
+sudo yum install -y ansible
+```
+
+Mac
+
+```sh
+pip install ansible
+```
+
+### Set file permissions
+
+```sh
+sudo chmod 400 ./ansible_rsa
+sudo chmod 400 ./ansible_vault_pwd
+```
+
+Optional shared group permissions
+
+```sh
+sudo chown -R vlad:admins .
+find . -type f -exec sudo chmod 664 {} \;
+find . -type d -exec sudo chmod 775 {} \;
+sudo setfacl -m g::rwx -m o::rx  .
+sudo setfacl -m default:g::rwx -m o::rx  .
+```
+
+### Prepare Control Machine
+
+```sh
+ansible-playbook playbooks/control.yml
+```
+
+### Provision Ansible on node
+
+```sh
+ansible-playbook -u myuser --ask-pass playbooks/ansible.yml
+--limit mynode
+# OR
+ansible-playbook -u myuser --private-key key_rsa playbooks/ansible.yml
+--limit mynode
+```
+
+### Install / Update Galaxy Roles
+
+```sh
+ansible-galaxy install --force --role-file requirements.yml
+```
+
+### Run Ansible with default settings
+
+```sh
+ansible-playbook site.yml
+```
+
+### Edit Vault encrypted files
+
+```sh
+ansible-vault edit playbooks/host_vars/lagoon/vault
+```
+
+### Ping hosts
+
+```sh
+ansible all -m ping
+```
+
+### Run ad-hoc commands on hosts
+
+```sh
+# Wher `all` is the group,`-b` is become sudo, `uptime` is the command)
+ansible all -b -a uptime
+```

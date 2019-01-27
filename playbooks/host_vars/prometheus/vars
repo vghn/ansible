@@ -1,0 +1,6 @@
+---
+# Security
+security_fail2ban_enabled: true
+
+# Set to true to enable swap on hosts.
+swap_enable: true

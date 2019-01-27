@@ -1,30 +1,20 @@
 dist: xenial
-services: docker
 env:
-  global:
-    - GIT_BRANCH="$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
-  matrix:
-    - DISTRIBUTION=ubuntu CODENAME=trusty
-    - DISTRIBUTION=ubuntu CODENAME=bionic
-    - DISTRIBUTION=ubuntu CODENAME=xenial
+  - GIT_BRANCH="$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
 install:
-  - sudo apt-get -qy update && sudo apt-get -qy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce && docker --version
   - pip install --user --upgrade ansible && ansible --version
+before_script: |
+  if [[ "$TRAVIS_BRANCH" == master && "$TRAVIS_PULL_REQUEST" == false ]]; then
+    for enc_file in ansible_rsa ansible_vault_pwd; do
+      if [[ ! -s "$enc_file" && -s "${enc_file}.gpg" ]]; then
+        gpg --batch --yes --pinentry-mode loopback --passphrase "$( echo "$ENCRYPT_KEY" | base64 --decode --ignore-garbage )" --decrypt --output "$enc_file" "${enc_file}.gpg"
+        chmod 400 "$enc_file"
+      fi
+    done
+  fi
 script:
-  - ./run build
-  - ./run test
-jobs:
-  include:
-    - stage: "Deploy"
-      if: branch = master AND type != pull_request
-      env: []
-      before_script: |
-        if [[ "$TRAVIS_BRANCH" == master && "$TRAVIS_PULL_REQUEST" == false ]]; then
-          . <( ( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 .env.gpg ) 2>/dev/null || true
-          echo "${DEPLOY_RSA:-}" | base64 --decode --ignore-garbage > ~/.ssh/deploy_rsa
-          chmod 600 ~/.ssh/deploy_rsa
-        fi
-      script: ./run deploy
+  - ansible-galaxy install --role-file requirements.yml
+  - ansible-playbook site.yml
 notifications:
   webhooks:
     urls: https://vbot.ghn.me/travis

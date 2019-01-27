@@ -1,5 +1,0 @@
----
-# Essential packages
-software:
-  - lvm2
-  - nfs-common

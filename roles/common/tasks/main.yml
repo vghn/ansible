@@ -1,5 +1,0 @@
----
-# Common tasks
-- import_tasks: apt.yml
-- import_tasks: accounts.yml
-- import_tasks: ca.yml

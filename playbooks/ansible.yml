@@ -1,0 +1,59 @@
+---
+- name: Provision Ansible
+  hosts: all
+  become: yes
+  gather_facts: false
+  pre_tasks:
+  - name: Install Python for Ansible
+    raw: test -e /usr/bin/python || (sudo apt-get update && sudo apt-get -qy install python-minimal)
+    changed_when: false
+  - name: Provision Ansible user
+    user:
+      name: ansible
+      uid: 9999
+  - name: Provision Ansible user authorized keys
+    authorized_key:
+      user: ansible
+      key: "{{ lookup('file', '../ansible_rsa.pub') }}"
+      exclusive: yes
+  - name: Add Ansible user to Sudoers
+    lineinfile:
+      path: /etc/sudoers.d/00_ansible
+      line: 'ansible ALL=(ALL) NOPASSWD: ALL'
+      state: present
+      mode: 0440
+      create: yes
+      validate: 'visudo -cf %s'
+  - name: Disable Password Authentication
+    lineinfile:
+      path: /etc/ssh/sshd_config
+      regexp: '^PasswordAuthentication'
+      line: 'PasswordAuthentication no'
+      state: present
+      backup: yes
+    notify:
+      - Restart SSH (Debian/Ubuntu)
+      - Restart SSH (RedHat/CentOS)
+  - name: Disable Root Login
+    lineinfile:
+      path: /etc/ssh/sshd_config
+      regexp: '^PermitRootLogin'
+      line: 'PermitRootLogin no'
+      state: present
+      backup: yes
+    notify:
+      - Restart SSH (Debian/Ubuntu)
+      - Restart SSH (RedHat/CentOS)
+  - name: Gathering Facts
+    setup:
+  handlers:
+    - name: Restart SSH (Debian/Ubuntu)
+      service:
+        name: ssh
+        state: restarted
+      when: ansible_os_family == "Debian"
+    - name: Restart SSH (RedHat/CentOS)
+      service:
+        name: sshd
+        state: restarted
+      when: ansible_os_family == "RedHat"

@@ -1,8 +1,6 @@
 [vgh]
 prometheus
 
-[cosmin]
-
 [aws]
 prometheus
 
