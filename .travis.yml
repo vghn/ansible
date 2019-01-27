@@ -2,7 +2,7 @@ dist: xenial
 env:
   - GIT_BRANCH="$TRAVIS_BRANCH" # Specify the branch name manually when on a detached HEAD
 install:
-  - pip install --user --upgrade ansible && ansible --version
+  - pip install --user --upgrade pip pycrypto ansible && ansible --version
 before_script: |
   if [[ "$TRAVIS_BRANCH" == master && "$TRAVIS_PULL_REQUEST" == false ]]; then
     for enc_file in ansible_rsa ansible_vault_pwd; do
