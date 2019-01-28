@@ -20,7 +20,7 @@
           {%- endif %}
     - name: Configure RSysLog
       template:
-        src: templates/etc/rsyslog.d/logs.ghn.me.conf.j2
+        src: etc/rsyslog.d/logs.ghn.me.conf.j2
         dest: /etc/rsyslog.d/00_logs.ghn.me.conf
       notify:
         - Restart RSysLog

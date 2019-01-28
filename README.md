@@ -110,7 +110,7 @@ ansible-playbook site.yml
 ### Edit Vault encrypted files
 
 ```sh
-ansible-vault edit playbooks/host_vars/lagoon/vault
+ansible-vault edit group_vars/all/vault
 ```
 
 ### Ping hosts

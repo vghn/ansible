@@ -7,6 +7,7 @@ before_script: |
   if [[ "$TRAVIS_BRANCH" == master && "$TRAVIS_PULL_REQUEST" == false ]]; then
     for enc_file in ansible_rsa ansible_vault_pwd; do
       if [[ ! -s "$enc_file" && -s "${enc_file}.gpg" ]]; then
+        echo "Decrypting "${enc_file}.gpg"
         ( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 --output "$enc_file" "${enc_file}.gpg"
         chmod 400 "$enc_file"
       fi
