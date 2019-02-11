@@ -30,13 +30,13 @@ travis env set ENCRYPT_KEY "$ENCRYPT_KEY" --private --com
 Encrypt the sensitive files
 
 ```sh
-( echo "$ENCRYPT_KEY" | base64 --decode ) | gpg --symmetric --passphrase-fd 0 --batch --yes --cipher-algo AES256 --s2k-digest-algo SHA512 --output ansible_rsa.gpg ansible_rsa
+tar cz ansible_rsa ansible_vault_pwd | gpg --symmetric --passphrase "$(echo "$ENCRYPT_KEY" | base64 --decode)" --batch --yes --cipher-algo AES256 --s2k-digest-algo SHA512 --output encrypted.tgz.gpg
 ```
 
 Decrypt the sensitive files
 
 ```sh
-( echo "$ENCRYPT_KEY" | base64 --decode ) |  gpg --batch --yes --decrypt --passphrase-fd 0 --output ansible_rsa ansible_rsa.gpg
+gpg --decrypt --passphrase "$(echo "$ENCRYPT_KEY" | base64 --decode)" --batch --yes encrypted.tgz.gpg | tar xz
 ```
 
 ### Install Ansible
