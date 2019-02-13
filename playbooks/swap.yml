@@ -6,4 +6,4 @@
     swap_file_size_mb: '1024'
   roles:
     - role: geerlingguy.swap
-      when: swap_enable
+      when: swap_enable is defined and swap_enable
