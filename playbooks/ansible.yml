@@ -24,36 +24,5 @@
       mode: 0440
       create: yes
       validate: 'visudo -cf %s'
-  - name: Disable Password Authentication
-    lineinfile:
-      path: /etc/ssh/sshd_config
-      regexp: '^PasswordAuthentication'
-      line: 'PasswordAuthentication no'
-      state: present
-      backup: yes
-    notify:
-      - Restart SSH (Debian/Ubuntu)
-      - Restart SSH (RedHat/CentOS)
-  - name: Disable Root Login
-    lineinfile:
-      path: /etc/ssh/sshd_config
-      regexp: '^PermitRootLogin'
-      line: 'PermitRootLogin no'
-      state: present
-      backup: yes
-    notify:
-      - Restart SSH (Debian/Ubuntu)
-      - Restart SSH (RedHat/CentOS)
   - name: Gathering Facts
     setup:
-  handlers:
-    - name: Restart SSH (Debian/Ubuntu)
-      service:
-        name: ssh
-        state: restarted
-      when: ansible_os_family == "Debian"
-    - name: Restart SSH (RedHat/CentOS)
-      service:
-        name: sshd
-        state: restarted
-      when: ansible_os_family == "RedHat"

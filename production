@@ -8,3 +8,6 @@ prometheus
 
 [docker]
 prometheus
+
+[monitor]
+prometheus

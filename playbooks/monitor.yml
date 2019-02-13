@@ -1,37 +1,6 @@
 ---
-- name: Send logs to ghn.me
-  hosts: all
-  become: yes
-  tasks:
-    - name: Ensure RSysLog Packages
-      package:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - rsyslog
-        - rsyslog-gnutls
-    - name: Target ca-certificate store file
-      set_fact:
-        ca_bundle_cert_path: |-
-          {% if ansible_os_family == 'Debian' -%}
-          /etc/ssl/certs/ca-certificates.crt
-          {%- elif ansible_os_family == "RedHat" -%}
-          /etc/ssl/certs/ca-bundle.crt
-          {%- endif %}
-    - name: Configure RSysLog
-      template:
-        src: etc/rsyslog.d/logs.ghn.me.conf.j2
-        dest: /etc/rsyslog.d/00_logs.ghn.me.conf
-      notify:
-        - Restart RSysLog
-  handlers:
-    - name: Restart RSysLog
-      service:
-        name: rsyslog
-        state: restarted
-
 - name: Node exporter
-  hosts: node_exporter
+  hosts: monitor
   become: yes
   roles:
     - cloudalchemy.node-exporter

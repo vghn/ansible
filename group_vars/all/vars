@@ -2,6 +2,10 @@
 # System
 ntp_timezone: US/Central
 
+# Logs
+remote_logs_enabled: true
+remote_logs_server: logs.ghn.me
+
 # Essential packages
 debian_software:
   - curl
