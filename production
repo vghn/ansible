@@ -11,3 +11,6 @@ prometheus
 
 [monitor]
 prometheus
+
+[nfs_clients]
+prometheus
