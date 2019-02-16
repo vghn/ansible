@@ -1,4 +1,2 @@
 exclude_paths:
   - .travis.yml
-skip_list:
-  - '405'
