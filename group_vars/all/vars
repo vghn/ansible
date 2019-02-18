@@ -44,3 +44,17 @@ accounts:
 # Docker
 docker_users:
   - vlad
+
+# MSMTP relay
+msmtp_enabled: true
+msmtp_log: syslog
+msmtp_accounts:
+  - account: Sendgrid
+    host: smtp.sendgrid.net
+    port: 587
+    auth: "on"
+    from: vlad@ghn.me
+    user: apikey
+    password: "{{ vault_msmtp_sendgrid_password }}"
+msmtp_default_account: Sendgrid
+msmtp_alias_default: vlad@ghn.me
