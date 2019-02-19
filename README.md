@@ -88,11 +88,9 @@ ansible-playbook playbooks/control.yml
 ### Provision Ansible on node
 
 ```sh
-ansible-playbook -u myuser --ask-pass playbooks/ansible.yml
---limit mynode
+ansible-playbook -u myuser --ask-pass playbooks/ansible.yml --limit mynode
 # OR
-ansible-playbook -u myuser --private-key key_rsa playbooks/ansible.yml
---limit mynode
+ansible-playbook -u myuser --private-key key_rsa playbooks/ansible.yml --limit mynode
 ```
 
 ### Install / Update Galaxy Roles
