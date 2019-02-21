@@ -4,13 +4,6 @@
   become: yes
   roles:
     - geerlingguy.nfs
-  post_tasks:
-    - name: Create mountable dir
-      file:
-        path: /data
-        state: directory
-        owner: cmedia
-        group: cmedia
 
 - name: NFS Clients
   hosts: nfs_clients
