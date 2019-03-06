@@ -1,4 +1,8 @@
 ---
+# Firewall
+firewall_state: stopped
+firewall_enabled_at_boot: false
+
 # Security
 security_fail2ban_enabled: true
 
