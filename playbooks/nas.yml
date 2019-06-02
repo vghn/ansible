@@ -35,8 +35,8 @@
         src: "{{ item.src }}"
         fstype: nfs
         opts: "{{ item.opts }}"
-        dump: 0
-        passno: 2
+        dump: '0'
+        passno: '2'
         state: mounted
       when: nfs_mounts is defined
       with_items: "{{ nfs_mounts }}"
