@@ -2,6 +2,12 @@
 - name: Common tasks on all nodes
   hosts: all
   become: yes
+  pre_tasks:
+    - name: Make sure Aptitude is installed
+      package:
+        name: aptitude
+        state: present
+      when: ansible_os_family == "Debian"
   roles:
     - role: geerlingguy.repo-epel
       when: ansible_os_family == "RedHat"
