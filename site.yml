@@ -1,7 +1,6 @@
 ---
 - import_playbook: playbooks/ansible.yml
 - import_playbook: playbooks/common.yml
-- import_playbook: playbooks/swap.yml
 - import_playbook: playbooks/docker.yml
 - import_playbook: playbooks/monitor.yml
 - import_playbook: playbooks/nas.yml

@@ -37,3 +37,12 @@
         version: master
         dest: /opt/dotfiles
         force: yes
+
+- name: Add swap on hosts
+  hosts: all
+  become: yes
+  vars:
+    swap_file_size_mb: '1024'
+  roles:
+    - role: geerlingguy.swap
+      when: swap_enable is defined and swap_enable

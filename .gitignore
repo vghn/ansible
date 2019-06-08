@@ -1,7 +1,6 @@
 # Private
 .env
 rsa
-vault_pwd
 
 # Ansible
 *.retry
