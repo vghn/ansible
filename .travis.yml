@@ -5,7 +5,7 @@ env:
     VAULT_ADDR: 'https://vault.ghn.me:8200'
     VAULT_VERSION: '1.1.2'
 install:
-  - pip install --user --upgrade pip pycrypto ansible hvac && ansible --version
+  - pip install --upgrade ansible pycrypto hvac && ansible --version
   - |
     wget -q https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
     wget -qO - https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_SHA256SUMS | grep linux_amd64 | sha256sum -c
