@@ -12,33 +12,6 @@ Ansible playbooks
 
 ## Ansible Control
 
-### Create SSH key
-
-```sh
-ssh-keygen -t rsa -b 4096 -C 'Ansible' -f ansible_rsa
-```
-
-### Encrypt sensitive files
-
-Create encryption key and optionally upload it to TravisCI
-
-```sh
-export ENCRYPT_KEY="$(echo "MyVeryStrongPassphrase" | base64)"
-travis env set ENCRYPT_KEY "$ENCRYPT_KEY" --private --com
-```
-
-Encrypt the sensitive files
-
-```sh
-tar cz ansible_rsa ansible_vault_pwd | gpg --symmetric --passphrase "$(echo "$ENCRYPT_KEY" | base64 --decode)" --batch --yes --cipher-algo AES256 --s2k-digest-algo SHA512 --output encrypted.tgz.gpg
-```
-
-Decrypt the sensitive files
-
-```sh
-gpg --decrypt --passphrase "$(echo "$ENCRYPT_KEY" | base64 --decode)" --batch --yes encrypted.tgz.gpg | tar xz
-```
-
 ### Install Ansible
 
 Ubuntu
@@ -60,13 +33,6 @@ Mac
 
 ```sh
 pip install ansible
-```
-
-### Set file permissions
-
-```sh
-sudo chmod 400 ./ansible_rsa
-sudo chmod 400 ./ansible_vault_pwd
 ```
 
 Optional shared group permissions

@@ -14,7 +14,7 @@
   - name: Provision Ansible user authorized keys
     authorized_key:
       user: ansible
-      key: "{{ lookup('file', '../ansible_rsa.pub') }}"
+      key: "{{ lookup('file', '../rsa.pub') }}"
       exclusive: yes
   - name: Add Ansible user to Sudoers
     lineinfile:
