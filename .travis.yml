@@ -1,4 +1,5 @@
 dist: xenial
+language: python
 env:
   global:
     VAULT_ADDR: 'https://vault.ghn.me:8200'
