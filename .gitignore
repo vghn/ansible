@@ -1,11 +1,10 @@
 # Private
 .env
-ansible_rsa
-ansible_vault_pwd
+rsa
+vault_pwd
 
 # Ansible
 *.retry
-roles/
 
 # Vagrant
 .vagrant
