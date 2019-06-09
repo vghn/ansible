@@ -10,14 +10,14 @@ install:
     wget -q https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
     wget -qO - https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_SHA256SUMS | grep linux_amd64 | sha256sum -c
     unzip vault_${VAULT_VERSION}_linux_amd64.zip; mv vault ~/bin/
-before_script: |
+  - ansible-galaxy install --role-file requirements.yml
+script: |
   if [[ "$TRAVIS_BRANCH" == master && "$TRAVIS_PULL_REQUEST" == false ]]; then
     export VAULT_TOKEN="$(vault write -field=token auth/approle/login role_id=${VAULT_ROLE_ID} secret_id=${VAULT_SECRET_ID})"
+    eval "$(ssh-agent -s)"
     ssh-add - <<<"$(vault kv get -field=key secrets/ansible/rsa)"
+    ansible-playbook site.yml
   fi
-script:
-  - ansible-galaxy install --role-file requirements.yml
-  - ansible-playbook site.yml
 notifications:
   webhooks:
     urls: https://vbot.ghn.me/travis
