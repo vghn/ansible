@@ -15,11 +15,7 @@ script: |
   if [[ "$TRAVIS_BRANCH" == master && "$TRAVIS_PULL_REQUEST" == false ]]; then
     export VAULT_TOKEN="$(vault write -field=token auth/approle/login role_id=${VAULT_ROLE_ID} secret_id=${VAULT_SECRET_ID})"
     eval "$(ssh-agent -s)"
-    vault kv get -field=key secrets/ansible/rsa > ./rsa
-    chmod 400 ./rsa
-    ssh-add ./rsa
-    ssh-add -l
-    # ssh-add - <<<"$(vault kv get -field=key secrets/ansible/rsa)"
+    ssh-add - <<<"$(vault kv get -field=key secrets/ansible/rsa)"
     ansible-playbook site.yml
   fi
 notifications:
