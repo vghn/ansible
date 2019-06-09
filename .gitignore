@@ -1,10 +1,12 @@
 # Private
 .env
-rsa
-
+`
 # Ansible
 *.retry
 
 # Vagrant
 .vagrant
 *.log
+
+# Other
+/tmp
