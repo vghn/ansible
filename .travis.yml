@@ -16,7 +16,8 @@ script: |
     export VAULT_TOKEN="$(vault write -field=token auth/approle/login role_id=${VAULT_ROLE_ID} secret_id=${VAULT_SECRET_ID})"
     vault kv get -field=key secrets/ansible/rsa > ./rsa
     chmod 400 ./rsa
-    eval "$(ssh-agent -s)"
+    # eval "$(ssh-agent -s)"
+    ssh-agent bash
     ssh-add ./rsa
     # ssh-add - <<<"$(vault kv get -field=key secrets/ansible/rsa)"
     ansible-playbook site.yml
