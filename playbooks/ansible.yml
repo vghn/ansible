@@ -11,6 +11,7 @@
     user:
       name: ansible
       uid: 9999
+      shell: /bin/bash
   - name: Provision Ansible user authorized keys
     authorized_key:
       user: ansible
