@@ -17,7 +17,8 @@ Ansible playbooks
 Ubuntu
 
 ```sh
-sudo apt update && sudo apt install -y software-properties-common
+sudo apt update
+sudo apt install -y software-properties-common git python3 python3-pip openssl
 sudo apt-add-repository -y --update ppa:ansible/ansible
 sudo apt-get install -y ansible
 ```
@@ -86,6 +87,6 @@ ansible all -m ping
 ### Run ad-hoc commands on hosts
 
 ```sh
-# Wher `all` is the group,`-b` is become sudo, `uptime` is the command)
+# Where `all` is the group,`-b` is become sudo, `uptime` is the command)
 ansible all -b -a uptime
 ```
