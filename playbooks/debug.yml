@@ -1,0 +1,7 @@
+---
+- name: Debug
+  hosts: all
+  become: yes
+  tasks:
+    - debug:
+        msg: Var is {{ test if test is defined else 'NONE' }}

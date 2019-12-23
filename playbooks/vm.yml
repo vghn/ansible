@@ -1,0 +1,23 @@
+---
+# Settings applicable to KVM, ESXi etc
+- name: Virtual machine configurations
+  hosts: vm
+  become: yes
+  roles:
+    - qemu-guest-agent
+  tasks:
+    # The timesyncd service provided by systemd conflicts with the ntp service (which we need for timezone)
+    - name: Disable systemd-timesyncd.service - Network Time Synchronization
+      systemd:
+        name: systemd-timesyncd
+        state: stopped
+        enabled: no
+      when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version == '18'
+    # Fix for "A start job is running for wait for network to be configured" 2 minute delay on some Ubuntu 18 VMs
+    - name: Disable and mask systemd-networkd-wait-online
+      systemd:
+        name: systemd-networkd-wait-online
+        state: stopped
+        enabled: no
+        masked: yes
+      when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version == '18'

@@ -1,0 +1,10 @@
+---
+- name: Ruby hosts
+  hosts: ruby
+  become: yes
+  vars:
+    rvm1_rubies: ['ruby-2.6.5']
+    rvm1_user: 'vlad'
+  roles:
+    - role: rvm.ruby
+      when: rvm_install is defined and rvm_install|bool

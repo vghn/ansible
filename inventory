@@ -1,18 +1,28 @@
 prometheus ansible_host=prometheus.ghn.me
+vault      ansible_host=vault.ghn.me
 
 [vgh]
 prometheus
+vault
 
 [aws]
 prometheus
+vault
+
+[vm]
 
 [docker]
 prometheus
 
+[ruby]
+
 [monitor]
 prometheus
+vault
 
 [nfs_clients]
 prometheus
 
 [nfs_servers]
+
+[samba_servers]

@@ -11,4 +11,12 @@
 - src: geerlingguy.repo-epel
 - src: geerlingguy.security
 - src: geerlingguy.swap
+- src: rvm.ruby
+
 - src: vladgh.common
+- src: https://github.com/vladgh/ansible-role-hashicorp.git
+  name: hashicorp
+- src: https://github.com/vladgh/ansible-role-qemu-guest-agent.git
+  name: qemu-guest-agent
+- src: https://github.com/vladgh/ansible-role-shellcheck.git
+  name: shellcheck

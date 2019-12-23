@@ -1,0 +1,3 @@
+---
+# Set to true to enable swap on hosts.
+swap_enable: true

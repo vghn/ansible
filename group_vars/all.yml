@@ -1,64 +1,16 @@
 ---
+# Security
+security_autoupdate_enabled: true
+security_fail2ban_enabled: true
+
+# Firewall
+firewall_disable_firewalld: true
+firewall_disable_ufw: true
+
 # System
+ntp_enabled: false
 ntp_timezone: US/Central
 
 # Logs
 remote_logs_enabled: true
 remote_logs_server: logs.ghn.me
-
-# Essential packages
-debian_software:
-  - curl
-  - htop
-  - tmux
-  - unzip
-  - vim
-  - wget
-  - jq
-
-# Python packages
-pip_package: python3-pip
-pip_install_packages:
-  - awscli
-  - docker
-
-# Apt repositories
-apt_repositories:
-  - name: GIT
-    repo: ppa:git-core/ppa
-
-# Security
-security_ssh_password_authentication: 'no'
-security_ssh_permit_root_login: 'no'
-security_autoupdate_enabled: true
-
-# Accounts
-accounts:
-  - name: vlad
-    comment: Vlad Ghinea
-    uid: 8523
-    groups: admins
-    append: yes
-    shell: /bin/bash
-    authorized_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE0yyqRUbBGOW9PcYyuaUMaRi/EFwL59E3wwMn5dJAKQ vlad@ghn.me
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAEAQCuW/klOclhy5P4ipa24ISqChtLrDsNOO/mSkmavq5ypE8LR9ZP2Y9o52LYZ+Cp3QTYO46qIt4ubTEnWHjaCoY82P2zyFn7S4X16NvKLnjRCV4T5U0O2MM8ZlQbQqZPvuzsNI64yMUWOlVKXGohWFctCxafQWzcFebctARf50armUPF9A7hKm0qYa6aEWl1/dtMs8JVP3+bhZ0AlhkbLNiOSvT63I9Yakc11bedmtY07nSVOa1bWgHuGogdbexqLeaKLj6xCQKKM1iM7uaxXZyJGXTXrFV+VomnWZ3WKRaGRU9ctf+ki3nJJpEphTQsir6Dvg/qXL6fOW1pU2vd5XgV60FVd6kvFzy5yMzZfRMrwgG4241BGtOrnNGJEqo/9HGSNv9xX7Mm0mqX57rdIagZPwGaOk930dI0osYuyv09o0tqzwtJByEQ8rzhHHVu1L1l7SrhcfGq2ocjyyuZ33AY4aIY3JaretsfyahhleHCXwJUSJS3NDob8sqg/h5OBEnWLEcWBUm5+L1EeK332LM9tBwxrqFu5h6FwUuUeg3GtmREbgAKfA8ZvUwN4bl/nGzxrwjBjC+Y1ceaU30IrcbxEl6KdmO2vxivtGUlzkjAZ7yg7VpPEGOFpOqfjpGF5QeWcFXD2fnF5pg+YwCQcKoC6fdyhndkKQDOA87uVkFhi3z/QFO/PJ4rNxx5N69cdtSwB4mwJIb5KtAsyciYZpsmV/YrZhNT/7pHuPl3gERUIDpw6roo7/Lkeb19WAOc+9fDEDyFvHJIzO6+J5Kt5YdG2eXMRcGsxSRAUhl3Hfbtfok3qNh86wp39xd1mjzRoslXSGTfARzNb/CjpLA7Bs7vcEHCVYqEOm4Po2irWQeZZPJqaf37TjThS9WesZQLxYsi1KvOJYQiIJeOK2JbccRlRTl0DmcKQbwhMPNdf87LzcsQpDzKE3iESMImmgmGu+zcx/lUwjs7zjAuC/nTbPXPfs5KzniCxJuHMjC08IoP4c+FnWXRwA8WjggqKWBom9gY8FfxnI35Ic/aZj4z2LSzBDISGxk50QwS44Z1RX5x/W28HmIk54BFl527/R0Z1UYodHK1/tLjIdPAAOiRHaTBzR/6jKqnvH5WTvzxOH1jclMtm0TLpTon+VgDwkPG1TRx5icTbyz1YtlEq3pfPRnE2endKJub52Tpiym9qbPVNDs0vK5JwExufUAplwtVUw35C+OVKUhIMYTHibpZZJnBKCuQCBZhQ/qGN13vuPHqhIVKkrsgdVabOj8QrPpbpQaoYDiaWCpLLKMDgt0VyOtpWJKksjUlzDF+nU7B37alXxc2wEVLHOqDvSze5RPdAiIrQUyWDf1GVtPcF9aABH1F vlad@ghn.me
-
-# Docker
-docker_compose_version: '1.24.1'
-docker_users:
-  - vlad
-
-# MSMTP relay
-msmtp_enabled: true
-msmtp_log: syslog
-msmtp_accounts:
-  - account: Sendgrid
-    host: smtp.sendgrid.net
-    port: 587
-    auth: "on"
-    from: vlad@ghn.me
-    user: apikey
-    password: "{{ lookup('hashi_vault', 'secret=vgh/data/ansible/msmtp/sendgrid:data')['password']}}"
-msmtp_default_account: Sendgrid
-msmtp_alias_default: vlad@ghn.me

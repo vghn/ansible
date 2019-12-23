@@ -8,17 +8,14 @@ This project is still in a prototype development stage.
 
 ## Overview
 
-Ansible playbooks
+Vlad's Ansible
 
-## Ansible Control
-
-### Install Ansible
+## Install Ansible
 
 Ubuntu
 
 ```sh
-sudo apt update
-sudo apt install -y software-properties-common git python3 python3-pip openssl
+sudo apt update && sudo apt install -y software-properties-common
 sudo apt-add-repository -y --update ppa:ansible/ansible
 sudo apt-get install -y ansible
 ```
@@ -30,10 +27,10 @@ sudo yum install -y epel-release
 sudo yum install -y ansible
 ```
 
-Mac
+Python
 
 ```sh
-pip install ansible
+python3 -m pip install --user --upgrade ansible
 ```
 
 Optional shared group permissions
@@ -46,47 +43,52 @@ sudo setfacl -m g::rwx -m o::rx  .
 sudo setfacl -m default:g::rwx -m o::rx  .
 ```
 
-### Prepare Control Machine
+## Provision Ansible on node
 
 ```sh
-ansible-playbook playbooks/control.yml
-```
-
-### Provision Ansible on node
-
-```sh
-ansible-playbook -u myuser --ask-pass --ask-become-pass playbooks/ansible.yml --limit mynode
+ansible-playbook -u vlad --ask-pass --ask-become-pass ansible.yml --limit mynode
+# if ssh errors
+ansible-playbook -c paramiko -u vlad --ask-pass --ask-become-pass playbooks/ansible.yml --limit mynode
 # OR
 ansible-playbook -u myuser --private-key key_rsa playbooks/ansible.yml --limit mynode
 ```
 
-### Install / Update Galaxy Roles
+## Install / Update Galaxy Roles
 
 ```sh
 ansible-galaxy install --force --role-file requirements.yml
 ```
 
-### Run Ansible with default settings
+## Run Ansible with default settings
 
 ```sh
 ansible-playbook site.yml
 ```
 
-### Edit Vault encrypted files
+## Edit Vault encrypted files
+
+<https://docs.ansible.com/ansible/latest/user_guide/vault.html>
 
 ```sh
+# Add `vault_password_file = ./ansible_vault_pwd` to ansible.cfg and create `ansible_vault_pwd` containing the password
 ansible-vault edit group_vars/all/vault
 ```
 
-### Ping hosts
+## Ping hosts
 
 ```sh
 ansible all -m ping
 ```
 
-### Run ad-hoc commands on hosts
+## Run ad-hoc commands on hosts
 
 ```sh
-# Where `all` is the group,`-b` is become sudo, `uptime` is the command)
+# Wher `all` is the group,`-b` is become sudo, `uptime` is the command)
 ansible all -b -a uptime
+```
+
+### Run locally
+
+```sh
+ansible-playbook --connection=local site.yml
 ```
