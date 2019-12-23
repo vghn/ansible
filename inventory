@@ -1,13 +1,10 @@
 prometheus ansible_host=prometheus.ghn.me
-vault      ansible_host=vault.ghn.me
 
 [vgh]
 prometheus
-vault
 
 [aws]
 prometheus
-vault
 
 [vm]
 
@@ -18,7 +15,6 @@ prometheus
 
 [monitor]
 prometheus
-vault
 
 [nfs_clients]
 prometheus
