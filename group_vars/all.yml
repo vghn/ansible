@@ -4,8 +4,7 @@ security_autoupdate_enabled: true
 security_fail2ban_enabled: true
 
 # Firewall
-firewall_disable_firewalld: true
-firewall_disable_ufw: true
+firewall_enabled: false
 
 # System
 ntp_enabled: false
