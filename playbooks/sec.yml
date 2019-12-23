@@ -7,4 +7,5 @@
     - dev-sec.os-hardening
     - dev-sec.ssh-hardening
     - geerlingguy.security
-    - geerlingguy.firewall
+    - role: geerlingguy.firewall
+      when: firewall_enabled is defined and firewall_enabled|bool
