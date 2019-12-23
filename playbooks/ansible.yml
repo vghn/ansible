@@ -5,17 +5,17 @@
   gather_facts: false
   pre_tasks:
   - name: Install Python for Ansible
-    raw: test -e /usr/bin/python || (sudo apt-get update && sudo apt-get -qy install python-minimal)
-    changed_when: false
+    package:
+      name: python3
+      state: present
   - name: Provision Ansible user
     user:
       name: ansible
       uid: 9999
-      shell: /bin/bash
   - name: Provision Ansible user authorized keys
     authorized_key:
       user: ansible
-      key: "{{ lookup('file', '../rsa.pub') }}"
+      key: "{{ lookup('file', '../public_keys/ansible_rsa.pub') }}"
       exclusive: yes
   - name: Add Ansible user to Sudoers
     lineinfile:

@@ -11,32 +11,14 @@
   roles:
     - role: geerlingguy.repo-epel
       when: ansible_os_family == "RedHat"
-    - vladgh.common
-    - geerlingguy.security
-    - geerlingguy.firewall
     - geerlingguy.ntp
     - geerlingguy.pip
 
-- name: Add GIT repositories on all hosts
+- name: Vlad's Common Module
   hosts: all
   become: yes
-  tasks:
-    - name: Ensure Git Package
-      package:
-        name: git
-        state: present
-    - name: Add VGS repository
-      git:
-        repo: https://github.com/vghn/vgs.git
-        version: master
-        dest: /opt/vgs
-        force: yes
-    - name: Add Vlad's Dotfiles
-      git:
-        repo: https://github.com/vladgh/dotfiles.git
-        version: master
-        dest: /opt/dotfiles
-        force: yes
+  roles:
+    - vladgh.common
 
 - name: Add swap on hosts
   hosts: all

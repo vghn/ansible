@@ -14,6 +14,6 @@
     - name: Run a daily docker clean-up
       cron:
         name: Docker CleanUp
-        minute: 2
-        hour: 2
+        minute: '2'
+        hour: '2'
         job: docker system prune --force 2>&1 | /usr/bin/logger -t DockerCleanUp

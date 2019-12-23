@@ -2,6 +2,7 @@
 .env
 
 # Ansible
+ansible_rsa
 *.retry
 
 # Vagrant

@@ -29,7 +29,7 @@
         group: "{{ item.group | default(omit) }}"
       when: nfs_mounts is defined
       with_items: "{{ nfs_mounts }}"
-    - name: Set mountpoints
+    - name: Create mountpoints
       mount:
         path: "{{ item.path }}"
         src: "{{ item.src }}"
@@ -46,4 +46,3 @@
   become: yes
   roles:
     - bertvv.samba
-
