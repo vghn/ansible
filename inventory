@@ -1,17 +1,7 @@
 prometheus ansible_host=prometheus.ghn.me
 
-[vgh]
-prometheus
-
-[aws]
-prometheus
-
-[vm]
-
 [docker]
 prometheus
-
-[ruby]
 
 [monitor]
 prometheus
@@ -21,4 +11,8 @@ prometheus
 
 [nfs_servers]
 
+[ruby]
+
 [samba_servers]
+
+[vm]

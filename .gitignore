@@ -2,7 +2,7 @@
 .env
 
 # Ansible
-ansible_rsa
+deploy_rsa
 *.retry
 
 # Vagrant

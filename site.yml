@@ -1,8 +1,7 @@
 ---
 - import_playbook: playbooks/ansible.yml
-- import_playbook: playbooks/packages.yml
-- import_playbook: playbooks/sec.yml
 - import_playbook: playbooks/common.yml
+- import_playbook: playbooks/sec.yml
 - import_playbook: playbooks/vm.yml
 - import_playbook: playbooks/docker.yml
 - import_playbook: playbooks/ruby.yml
