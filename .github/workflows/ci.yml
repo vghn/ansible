@@ -13,7 +13,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v1
     - name: Install dependencies
-      run: python3 -m pip install --user --upgrade pip ansible hvac pycrypto
+      run: python3 -m pip install --upgrade pip ansible hvac pycrypto
     - name: Install Vault
       run: |
             wget -q https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
