@@ -15,7 +15,7 @@ script: |
   if [[ "$TRAVIS_BRANCH" == master && "$TRAVIS_PULL_REQUEST" == false ]]; then
     export VAULT_TOKEN="$(vault write -field=token auth/approle/login role_id=${VAULT_ROLE_ID} secret_id=${VAULT_SECRET_ID})"
     vault kv get -field=id_rsa vgh/deploy > deploy_rsa && chmod 600 deploy_rsa
-    ansible-playbook site.yml
+    # ansible-playbook site.yml
   fi
 notifications:
   webhooks:
