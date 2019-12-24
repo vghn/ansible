@@ -1,6 +1,6 @@
 # Ansible
 
-[![Build Status](https://travis-ci.com/vghn/ansible.svg?branch=master)](https://travis-ci.com/vghn/ansible)
+![Build Status](https://github.com/vghn/ansible/workflows/CI/badge.svg)
 
 ## Development status
 
