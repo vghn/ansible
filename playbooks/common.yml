@@ -2,6 +2,8 @@
 - name: Common tasks on all nodes
   hosts: all
   become: yes
+  vars:
+    swap_file_size_mb: '1024'
   pre_tasks:
     - name: Make sure Aptitude is installed
       package:
@@ -13,18 +15,6 @@
       when: ansible_os_family == "RedHat"
     - geerlingguy.ntp
     - geerlingguy.pip
-
-- name: Vlad's Common Module
-  hosts: all
-  become: yes
-  roles:
-    - vladgh.common
-
-- name: Add swap on hosts
-  hosts: all
-  become: yes
-  vars:
-    swap_file_size_mb: '1024'
-  roles:
     - role: geerlingguy.swap
       when: swap_enabled is defined and swap_enabled
+    - vladgh.common
