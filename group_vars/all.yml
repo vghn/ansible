@@ -6,6 +6,11 @@ security_fail2ban_enabled: true
 # Firewall
 firewall_enabled: false
 
+# OS Hardening
+sysctl_overwrite:
+  # Enable IPv4 traffic forwarding
+  net.ipv4.ip_forward: 1
+
 # System
 ntp_enabled: false
 ntp_timezone: US/Central
