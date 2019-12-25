@@ -14,16 +14,17 @@ jobs:
       VAULT_ADDR: 'https://vault.ghn.me:8200'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v1
     - name: Install dependencies
       run: pip install --upgrade pip ansible hvac pycrypto
     - name: Install Vault
       run: |
-            wget -q https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
-            wget -qO - https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_SHA256SUMS | grep linux_amd64 | sha256sum -c
-            unzip vault_${VAULT_VERSION}_linux_amd64.zip; sudo mv vault /usr/local/bin/
+            wget -q "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip"
+            wget -qO - "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_SHA256SUMS" | grep linux_amd64 | sha256sum -c
+            sudo unzip -d /usr/local/bin/ "vault_${VAULT_VERSION}_linux_amd64.zip"
+            vault version
     - name: Authenticate Vault
       run: |
             VAULT_TOKEN=$(vault write -field=token auth/approle/login role_id=${{ secrets.VAULT_ROLE_ID }} secret_id=${{ secrets.VAULT_SECRET_ID }})
