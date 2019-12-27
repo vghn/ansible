@@ -25,8 +25,8 @@ msmtp_accounts:
     host: smtp.sendgrid.net
     port: 587
     auth: "on"
-    from: vlad@ghn.me
+    from: "{{ lookup('hashi_vault', 'secret=vgh/data/ansible/msmtp/sendgrid:data')['email']}}"
     user: apikey
     password: "{{ lookup('hashi_vault', 'secret=vgh/data/ansible/msmtp/sendgrid:data')['password']}}"
 msmtp_default_account: Sendgrid
-msmtp_alias_default: vlad@ghn.me
+msmtp_alias_default: "{{ lookup('hashi_vault', 'secret=vgh/data/ansible/msmtp/sendgrid:data')['email']}}"
