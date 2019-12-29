@@ -46,7 +46,7 @@ sudo setfacl -m default:g::rwx -m o::rx  .
 ## Provision Ansible on node
 
 ```sh
-ansible-playbook -u vlad --ask-pass --ask-become-pass ansible.yml --limit mynode
+ansible-playbook -u vlad --ask-pass --ask-become-pass playbooks/ansible.yml --limit mynode
 # if ssh errors
 ansible-playbook -c paramiko -u vlad --ask-pass --ask-become-pass playbooks/ansible.yml --limit mynode
 # OR

@@ -21,7 +21,10 @@
 - src: vladgh.common
 - src: https://github.com/vladgh/ansible-role-hashicorp.git
   name: hashicorp
+  version: master
 - src: https://github.com/vladgh/ansible-role-qemu-guest-agent.git
   name: qemu-guest-agent
+  version: master
 - src: https://github.com/vladgh/ansible-role-shellcheck.git
   name: shellcheck
+  version: master
