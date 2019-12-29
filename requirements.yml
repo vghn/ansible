@@ -12,6 +12,7 @@
 - src: geerlingguy.security
 - src: geerlingguy.swap
 - src: rvm.ruby
+- src: yatesr.timezone
 
 - src: vladgh.common
 - src: https://github.com/vladgh/ansible-role-hashicorp.git

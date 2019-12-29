@@ -1,4 +1,7 @@
 ---
+# System
+timezone: US/Central
+
 # Security
 security_autoupdate_enabled: true
 security_fail2ban_enabled: true
@@ -10,10 +13,6 @@ firewall_enabled: false
 sysctl_overwrite:
   # Enable IPv4 traffic forwarding
   net.ipv4.ip_forward: 1
-
-# System
-ntp_enabled: false
-ntp_timezone: US/Central
 
 # Logs
 remote_logs_enabled: true
