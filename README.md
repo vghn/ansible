@@ -83,7 +83,7 @@ ansible all -m ping
 ## Run ad-hoc commands on hosts
 
 ```sh
-# Wher `all` is the group,`-b` is become sudo, `uptime` is the command)
+# Where `all` is the group,`-b` is become sudo, `uptime` is the command)
 ansible all -b -a uptime
 ```
 

@@ -1,5 +1,3 @@
-prometheus ansible_host=prometheus.ghn.me
-
 [docker]
 prometheus
 
