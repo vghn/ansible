@@ -3,7 +3,8 @@
 
 # Ansible
 deploy_rsa
-*.retry
+vault_pwd
 
 # Other
+*.retry
 /tmp
