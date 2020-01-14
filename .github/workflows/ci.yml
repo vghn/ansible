@@ -28,13 +28,13 @@ jobs:
     - name: Authenticate Vault
       run: |
             # Get secrets from Vault
-            VAULT_TOKEN=$(vault write -field=token auth/approle/login role_id=${{ secrets.VAULT_ROLE_ID }} secret_id=${{ secrets.VAULT_SECRET_ID }} || echo '')
+            VAULT_TOKEN=$(vault write -field=token auth/approle/login role_id=${{ secrets.VAULT_ROLE_ID }} secret_id=${{ secrets.VAULT_SECRET_ID }})
             echo ::add-mask::$VAULT_TOKEN
             echo ::set-env name=VAULT_TOKEN::$VAULT_TOKEN
     - name: Get Ansible Deploy Key
       run: echo '${{ secrets.ANSIBLE_DEPLOY_KEY }}' > deploy_rsa && chmod 600 deploy_rsa
     - name: Get Ansible Vault password
-      run: echo '${{ secrets.ANSIBLE_VAULT_PASSWORD }}' > vault_pwd
+      run: echo '${{ secrets.ANSIBLE_VAULT_PASSWORD }}' > vault_pwd && chmod 600 vault_pwd
     - name: Download Ansible roles
       run: ansible-galaxy install --role-file requirements.yml
     - name: Run Ansible

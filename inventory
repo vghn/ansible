@@ -3,6 +3,7 @@ prometheus
 
 [monitor]
 prometheus
+vault
 
 [nfs_clients]
 prometheus

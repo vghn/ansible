@@ -5,42 +5,6 @@
   roles:
     - geerlingguy.nfs
 
-- name: NFS Clients
-  hosts: nfs_clients
-  become: yes
-  tasks:
-    - name: Ensure NFS is installed (Debian/Ubuntu)
-      apt:
-        name: nfs-common
-        state: present
-        update_cache: yes
-      when: ansible_os_family == "Debian"
-    - name: Ensure NFS is installed (RedHat/CentOS)
-      yum:
-        name: nfs-utils
-        state: present
-        update_cache: yes
-      when: ansible_os_family == "RedHat"
-    - name: Create mountable dir
-      file:
-        path: "{{ item.path }}"
-        state: directory
-        owner: "{{ item.owner | default(omit) }}"
-        group: "{{ item.group | default(omit) }}"
-      when: nfs_mounts is defined
-      with_items: "{{ nfs_mounts }}"
-    - name: Create mountpoints
-      mount:
-        path: "{{ item.path }}"
-        src: "{{ item.src }}"
-        fstype: nfs
-        opts: "{{ item.opts }}"
-        dump: '0'
-        passno: '2'
-        state: mounted
-      when: nfs_mounts is defined
-      with_items: "{{ nfs_mounts }}"
-
 - name: Samba Servers
   hosts: samba_servers
   become: yes

@@ -11,6 +11,13 @@ sysctl_overwrite:
   # Enable IPv4 traffic forwarding (for docker)
   net.ipv4.ip_forward: 1
 
+# Cron Jobs
+cron_jobs:
+  - name: Docker CleanUp
+    minute: '2'
+    hour: '2'
+    job: docker system prune --force 2>&1 | /usr/bin/logger -t DockerCleanUp
+
 # Docker
 docker_users:
   - vlad
