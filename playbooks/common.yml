@@ -2,8 +2,6 @@
 - name: Common tasks on all nodes
   hosts: all
   become: yes
-  vars:
-    swap_file_size_mb: '1024'
   pre_tasks:
     - name: Make sure Aptitude is installed
       package:
@@ -21,5 +19,5 @@
     - role: geerlingguy.pip
       when: pip_install_packages is defined and pip_install_packages|length > 0
     - role: geerlingguy.swap
-      when: swap_enabled is defined and swap_enabled
+      when: swap_file_size_mb is defined
     - vladgh.common
