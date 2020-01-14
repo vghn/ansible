@@ -32,6 +32,7 @@ jobs:
             echo ::set-env name=VAULT_TOKEN::$VAULT_TOKEN
     - name: Get secrets from Vault
       run: vault kv get -field=id_rsa vgh/deploy > deploy_rsa && chmod 600 deploy_rsa
+      if: success()
     - name: Get Ansible Vault password
       run: echo '${{ secrets.ANSIBLE_VAULT_PASSWORD }}' > vault_pwd
     - name: Download Ansible roles
