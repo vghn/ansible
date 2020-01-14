@@ -32,7 +32,7 @@ jobs:
             echo ::add-mask::$VAULT_TOKEN
             echo ::set-env name=VAULT_TOKEN::$VAULT_TOKEN
     - name: Get Ansible Deploy Key
-      run: echo '${{ secrets.ANSIBLE_DEPLOY_KEY }}' > deploy_rsa
+      run: echo '${{ secrets.ANSIBLE_DEPLOY_KEY }}' > deploy_rsa && chmod 600 deploy_rsa
     - name: Get Ansible Vault password
       run: echo '${{ secrets.ANSIBLE_VAULT_PASSWORD }}' > vault_pwd
     - name: Download Ansible roles
