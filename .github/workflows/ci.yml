@@ -32,11 +32,13 @@ jobs:
             echo ::set-env name=VAULT_TOKEN::$VAULT_TOKEN
     - name: Get secrets from Vault
       run: vault kv get -field=id_rsa vgh/deploy > deploy_rsa && chmod 600 deploy_rsa
-      if: always()
+      if: success()
     - name: Get Ansible Vault password
       run: echo '${{ secrets.ANSIBLE_VAULT_PASSWORD }}' > vault_pwd
       if: always()
     - name: Download Ansible roles
       run: ansible-galaxy install --role-file requirements.yml
+      if: always()
     - name: Run Ansible
       run: ansible-playbook site.yml
+      if: always()
