@@ -2,6 +2,16 @@
 - name: Debug
   hosts: all
   become: yes
+  vars:
+    show_facts: no
+    debugging: yes
   tasks:
-    - debug:
-        msg: Var is {{ test if test is defined else 'NONE' }}
+    - name: Show Ansible Facts
+      debug:
+        var: ansible_facts
+      when: show_facts is defined and show_facts|bool
+    - name: Debug
+      debug:
+        msg: ok
+      # when: debugging is defined and ansible_distribution_major_version|int >= 18
+      # when: debugging is defined and debugging|bool

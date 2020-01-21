@@ -1,11 +1,9 @@
 ---
 # Security-related configurations, compliant with the DevSec Linux Baseline (https://github.com/dev-sec/linux-baseline).
-- name: Security hardening
-  hosts: all
+- name: OS and SSH Hardening
+  hosts: harden
   become: yes
   roles:
     - dev-sec.os-hardening
     - dev-sec.ssh-hardening
     - geerlingguy.security
-    - role: geerlingguy.firewall
-      when: firewall_enabled is defined and firewall_enabled|bool
