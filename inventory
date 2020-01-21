@@ -1,12 +1,15 @@
 [docker]
 prometheus
 
-[monitor]
+[firewall]
+
+[harden]
 prometheus
 vault
 
-[nfs_clients]
+[monitor]
 prometheus
+vault
 
 [nfs_servers]
 
