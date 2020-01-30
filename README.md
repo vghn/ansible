@@ -46,10 +46,11 @@ sudo setfacl -m default:g::rwx -m o::rx  .
 ## Provision Ansible on node
 
 ```sh
+# become root
 ansible-playbook -u vlad --ask-pass --ask-become-pass playbooks/ansible.yml --limit mynode
-# if ssh errors
+# with ssh library
 ansible-playbook -c paramiko -u vlad --ask-pass --ask-become-pass playbooks/ansible.yml --limit mynode
-# OR
+# with private key
 ansible-playbook -u myuser --private-key key_rsa playbooks/ansible.yml --limit mynode
 ```
 
@@ -78,17 +79,4 @@ ansible-vault edit group_vars/all/vault
 
 ```sh
 ansible all -m ping
-```
-
-## Run ad-hoc commands on hosts
-
-```sh
-# Where `all` is the group,`-b` is become sudo, `uptime` is the command)
-ansible all -b -a uptime
-```
-
-### Run locally
-
-```sh
-ansible-playbook --connection=local site.yml
 ```
