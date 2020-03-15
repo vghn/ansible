@@ -23,7 +23,7 @@ jobs:
       run: |
             wget -q "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip"
             wget -qO - "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_SHA256SUMS" | grep linux_amd64 | sha256sum -c
-            sudo unzip -d /usr/local/bin/ "vault_${VAULT_VERSION}_linux_amd64.zip"
+            sudo unzip -o -d /usr/local/bin/ "vault_${VAULT_VERSION}_linux_amd64.zip"
             vault version
     - name: Authenticate Vault
       run: |
