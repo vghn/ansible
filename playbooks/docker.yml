@@ -7,6 +7,6 @@
     docker_package: "docker-{{ docker_edition }}"
     docker_package_state: present
     docker_install_compose: yes
-    docker_compose_version: '1.25.4'
+    docker_compose_version: '1.25.5'
   roles:
     - geerlingguy.docker
