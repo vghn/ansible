@@ -1,4 +1,11 @@
 ---
+# Packages
+apt_repositories:
+  - name: GIT
+    repo: ppa:wireguard/wireguard
+debian_software:
+  - wireguard
+
 # OS Hardening
 sysctl_overwrite:
   # Enable IPv4 traffic forwarding (for docker)
