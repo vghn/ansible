@@ -5,11 +5,9 @@ prometheus
 
 [harden]
 prometheus
-vault
 
 [monitor]
 prometheus
-vault
 
 [nfs_servers]
 
