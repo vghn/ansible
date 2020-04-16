@@ -6,6 +6,10 @@ apt_repositories:
 debian_software:
   - wireguard
 
+# Python packages
+pip_package: python3-pip
+pip_install_packages: [docker, jsondiff, pyyaml]
+
 # OS Hardening
 sysctl_overwrite:
   # Enable IPv4 traffic forwarding (for docker)
