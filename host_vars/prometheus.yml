@@ -12,8 +12,8 @@ pip_install_packages: [docker, jsondiff, pyyaml]
 
 # OS Hardening
 sysctl_overwrite:
-# Enable IPv4 traffic forwarding (for docker)
-net.ipv4.ip_forward: 1
+  # Enable IPv4 traffic forwarding (for docker)
+  net.ipv4.ip_forward: 1
 
 # SSH Hardening
 sftp_enabled: true
