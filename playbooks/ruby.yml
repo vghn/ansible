@@ -1,7 +1,6 @@
 ---
-- name: Ruby hosts
+- name: Ruby
   hosts: ruby
   become: yes
   roles:
-    - role: rvm.ruby
-      when: rvm1_rubies is defined and rvm1_rubies
+    - rvm.ruby

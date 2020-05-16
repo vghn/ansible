@@ -1,12 +1,6 @@
 ---
-- name: Docker hosts
+- name: Docker
   hosts: docker
   become: yes
-  vars:
-    docker_edition: 'ce'
-    docker_package: "docker-{{ docker_edition }}"
-    docker_package_state: present
-    docker_install_compose: yes
-    docker_compose_version: '1.25.5'
   roles:
     - geerlingguy.docker

@@ -1,5 +1,5 @@
 ---
-- name: Node exporter
+- name: Monitor
   hosts: monitor
   become: yes
   roles:
