@@ -11,7 +11,7 @@
   - name: Provision Ansible user
     user:
       name: ansible
-      uid: 9999
+      uid: 2674
   - name: Provision Ansible user authorized keys
     authorized_key:
       user: ansible
