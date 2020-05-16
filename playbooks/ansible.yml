@@ -1,5 +1,5 @@
 ---
-- name: Provision Ansible
+- name: Ansible
   hosts: all
   become: yes
   gather_facts: false
@@ -8,11 +8,11 @@
     package:
       name: python3
       state: present
-  - name: Provision Ansible user
+  - name: Ansible user
     user:
       name: ansible
       uid: 2674
-  - name: Provision Ansible user authorized keys
+  - name: Ansible user authorized keys
     authorized_key:
       user: ansible
       key: "{{ lookup('file', '../deploy_rsa.pub') }}"
@@ -25,5 +25,5 @@
       mode: 0440
       create: yes
       validate: 'visudo -cf %s'
-  - name: Gathering Facts
+  - name: Gather facts
     setup:

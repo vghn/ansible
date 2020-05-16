@@ -1,13 +1,14 @@
 ---
-- name: Common tasks on all nodes
+- name: Common
   hosts: all
   become: yes
   roles:
     - role: geerlingguy.repo-epel
       when: ansible_os_family == "RedHat"
-    - yatesr.timezone
+    - role: yatesr.timezone
+      when: timezone is defined and timezone
     - role: geerlingguy.pip
       when: pip_install_packages is defined and pip_install_packages|length > 0
     - role: geerlingguy.swap
       when: swap_file_size_mb is defined
-    - vladgh.common
+    - role: vladgh.common
