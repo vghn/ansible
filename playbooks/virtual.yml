@@ -1,6 +1,6 @@
 ---
 - name: Virtual Machine
-  hosts: vm
+  hosts: virtual
   become: yes
   roles:
     - qemu-guest-agent
