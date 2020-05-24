@@ -12,3 +12,7 @@
     - role: geerlingguy.swap
       when: swap_file_size_mb is defined
     - role: vladgh.common
+    - role: vladgh.smtp
+      when: >
+        smtp_server_address is defined and smtp_server_address and
+        smtp_user is defined and smtp_user

@@ -11,11 +11,13 @@
   - name: Ansible user
     user:
       name: ansible
+      state: present
       uid: 2674
   - name: Ansible user authorized keys
     authorized_key:
       user: ansible
-      key: "{{ lookup('file', '../deploy_rsa.pub') }}"
+      key: "{{ deploy_ssh_rsa }}"
+      state: present
       exclusive: yes
   - name: Add Ansible user to Sudoers
     lineinfile:
@@ -25,5 +27,3 @@
       mode: 0440
       create: yes
       validate: 'visudo -cf %s'
-  - name: Gather facts
-    setup:

@@ -18,13 +18,18 @@
 - src: rvm.ruby
 - src: yatesr.timezone
 
-- src: vladgh.common
-- src: https://github.com/vladgh/ansible-role-hashicorp.git
-  name: hashicorp
+- src: https://github.com/vladgh/ansible-role-common.git
+  name: vladgh.common
   version: master
-- src: https://github.com/vladgh/ansible-role-qemu-guest-agent.git
-  name: qemu-guest-agent
+- src: https://github.com/vladgh/ansible-role-hashicorp.git
+  name: vladgh.hashicorp
+  version: master
+- src: https://github.com/vladgh/ansible-role-qemu_guest_agent.git
+  name: vladgh.qemu_guest_agent
   version: master
 - src: https://github.com/vladgh/ansible-role-shellcheck.git
-  name: shellcheck
+  name: vladgh.shellcheck
+  version: master
+- src: https://github.com/vladgh/ansible-role-smtp.git
+  name: vladgh.smtp
   version: master
