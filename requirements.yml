@@ -1,12 +1,8 @@
 ---
 - src: bertvv.samba
 - src: cloudalchemy.node-exporter
-- src: https://github.com/dev-sec/ansible-os-hardening
-  name: dev-sec.os-hardening
-  version: master
-- src: https://github.com/dev-sec/ansible-ssh-hardening
-  name: dev-sec.ssh-hardening
-  version: master
+- src: dev-sec.os-hardening
+- src: dev-sec.ssh-hardening
 - src: geerlingguy.docker
 - src: geerlingguy.firewall
 - src: geerlingguy.nfs
