@@ -15,4 +15,8 @@ prometheus
 
 [samba_servers]
 
+[slack]
+prometheus
+
 [virtual]
+prometheus

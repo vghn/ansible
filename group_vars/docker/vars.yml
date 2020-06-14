@@ -4,3 +4,7 @@ docker_package: "docker-{{ docker_edition }}"
 docker_package_state: present
 docker_install_compose: yes
 docker_compose_version: '1.26.0'  # https://github.com/docker/compose/releases
+
+docker_users:
+  - ansible
+  - vlad

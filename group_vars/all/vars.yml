@@ -6,7 +6,11 @@ deploy_ssh_rsa: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDmv0M0KB/ZFGaja4p7A7f5p3cn
 timezone: UTC
 
 # Accounts
-accounts:
+local_groups:
+  - name: admins
+    system: yes
+    sudo: yes
+local_users:
   - name: vlad
     comment: Vlad Ghinea
     groups: admins
@@ -14,3 +18,6 @@ accounts:
     shell: /bin/bash
     authorized_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE0yyqRUbBGOW9PcYyuaUMaRi/EFwL59E3wwMn5dJAKQ vlad@ghn.me
+
+# Slack
+slack_token: "{{ vault_slack_token }}"

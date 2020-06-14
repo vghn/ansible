@@ -1,6 +1,5 @@
 ---
 # Python packages
-pip_package: python3-pip
 pip_install_packages: [docker, jsondiff, pyyaml]
 
 # OS Hardening
@@ -25,8 +24,3 @@ security_fail2ban_enabled: true
 
 # Enable swap on hosts.
 swap_file_size_mb: '1024'
-
-# Docker
-docker_users:
-  - ansible
-  - vlad

@@ -8,3 +8,4 @@
 - import_playbook: playbooks/ruby.yml
 - import_playbook: playbooks/monitor.yml
 - import_playbook: playbooks/nas.yml
+- import_playbook: playbooks/slack.yml
