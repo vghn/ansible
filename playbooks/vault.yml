@@ -21,7 +21,6 @@
       apt:
         autoclean: yes
   roles:
-    - vladgh.common
     - dev-sec.os-hardening
     - dev-sec.ssh-hardening
     - geerlingguy.security
