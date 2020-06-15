@@ -1,0 +1,27 @@
+---
+- name: Vault
+  hosts: vault
+  become: yes
+  vars:
+    security_autoupdate_enabled: true
+    security_fail2ban_enabled: true
+  pre_tasks:
+    - name: Update apt-get repo and cache
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+    - name: Upgrade all apt packages
+      apt:
+        upgrade: dist
+    - name: Remove dependencies that are no longer required
+      apt:
+        autoremove: yes
+        purge: yes
+    - name: Remove useless packages from the cache
+      apt:
+        autoclean: yes
+  roles:
+    - vladgh.common
+    - dev-sec.os-hardening
+    - dev-sec.ssh-hardening
+    - geerlingguy.security
